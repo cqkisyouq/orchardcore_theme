@@ -1,0 +1,44 @@
+﻿@model AttachContentPartViewModel
+
+<style asp-name="codemirror"></style>
+<script asp-name="codemirror" depends-on="admin" at="Foot"></script>
+<script asp-name="codemirror-mode-javascript" at="Foot"></script>
+<script asp-name="codemirror-addon-display-autorefresh" at="Foot"></script>
+<script asp-name="codemirror-addon-mode-simple" at="Foot"></script>
+<script asp-name="codemirror-addon-mode-multiplex" at="Foot"></script>
+<script asp-name="codemirror-mode-xml" at="Foot"></script>
+<script asp-src="~/OrchardCore.Liquid/codemirror/liquid.js" at="Foot"></script>
+
+<div class="form-group">
+    <div class="custom-control custom-checkbox">
+        <input type="checkbox" class="custom-control-input" asp-for="HideContent" />
+        <label class="custom-control-label" asp-for="HideContent">@T["Hide Content"]</label>
+    </div>
+</div>
+<div class="form-group">
+    <label asp-for="AttachContent">@T["Attach Content"]</label>
+    <textarea asp-for="AttachContent" rows="5" class="form-control content-preview-text"></textarea>
+    <span class="hint">@T["The body of the content item, in Liquid format."]</span>
+</div>
+<script at="Foot">
+$(function () {
+    var textArea = document.getElementById('@Html.IdFor(x => x.AttachContent)');
+
+    if (textArea == null) {
+        return;
+    }
+
+    var editor = CodeMirror.fromTextArea(textArea, {
+        autoRefresh: true,
+        lineNumbers: true,
+        styleActiveLine: true,
+        matchBrackets: true,
+        mode: { name: "liquid" },
+    });
+
+    editor.on('change', function (cm) {
+        document.getElementById('@Html.IdFor(x => x.AttachContent)').value = cm.getValue();
+        $(document).trigger('contentpreview:render');
+    });
+});
+</script>

@@ -1,0 +1,27 @@
+﻿@inject OrchardCore.DisplayManagement.ModelBinding.IUpdateModelAccessor updateModel;
+
+@{
+    string shape = Model.ListPart.ContentItem.Content.PanelContent.PanelShape.Text;
+    var index = 1;
+}
+@foreach (ContentItem item in Model.ContentItems)
+{
+    string location = item.Content.GroupLocation.Location.Text;
+    var shapeLocation = shape == "Row" ? location : $"{shape}";
+
+    if (shape == "Table")
+    {
+        item.Content.Index = Model.ListPart.Content?.Index;
+        var tableId = $"tab{Model.ListPart.Content.Index}-{index}";
+        <div class="tab-pane fade show @(index==1?"active":"")" id="@tableId" role="tabpanel">
+            <div class="row">
+                @await Orchard.DisplayAsync(item, shapeLocation, updater: updateModel.ModelUpdater)
+            </div>
+        </div>
+        index++;
+    }
+    else
+    {
+        @await Orchard.DisplayAsync(item, shapeLocation, updater: updateModel.ModelUpdater)
+    }
+}

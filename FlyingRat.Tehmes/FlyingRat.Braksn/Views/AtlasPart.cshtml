@@ -1,0 +1,152 @@
+﻿@{
+    if (Model.UseAtlas == false) return;
+    var index = 0;
+}
+<section class="container m-b-35 p-t-25">
+    <div class="m-b-10" style="display:flex;justify-content:center;">
+        <h3>@Model.Name</h3>
+    </div>
+    <div class="row m-rl--1" id="imgs">
+        @foreach (var item in Model.Medias)
+        {
+            var img = Orchard.AssetUrl(item.Path as string, 320, 210);
+            <div class="col-6 col-md-3">
+                <div class="m-b-10 pos-relative">
+                    <a class="wrap-pic-w hov1 trans-03" data-toggle="modal" data-target="#myModal">
+                        <img class="img-thumbnail" asset-src="@item.Path?width=320&height=210&rmode=stretch" alt="@item.Name" />
+                    </a>
+                </div>
+            </div>
+        }
+    </div>
+    @await DisplayAsync(Model.Pager)
+</section>
+<div class="modal fade" id="myModal">
+    <div class="modal-dialog modal-lg" style="height:100%;max-height:100%;" id="mask">
+        <div style="display:grid;justify-items:right;position:relative;z-index:10000;">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+        </div>
+        <div id="demo" class="carousel" data-ride="carousel">
+            <ul class="carousel-indicators fixed-bottom" style="bottom:90px;overflow:hidden;justify-content:left;">
+                @foreach (var item in Model.Medias)
+                {
+                    <li data-target="#demo" data-slide-to="@index" class="item-img @(index == 0 ?"active":"")" style="display:flex;width:85px;height:90px;padding:2px;">
+                        <img asset-src="@item.Path?width=80&height=80&rmode=stretch" />
+                    </li>
+                    index++;
+                }
+            </ul>
+            @{ index = 0; }
+            <div class="carousel-inner max-img" role="listbox" style="height: 600px;">
+                @foreach (var item in Model.Medias)
+                {
+                    <div class="carousel-item col-12 @(index==0?"active":"")" style="text-align:center;top:50%;left:50%;transform:translate(-50%, -50%);">
+                        <img asset-src="@item.Path" />
+                    </div>
+                    index++;
+                }
+            </div>
+        </div>
+        <div>
+            <a class="carousel-control-prev" href="#demo" data-slide="prev" style="position:fixed;">
+                <span class="carousel-control-prev-icon"></span>
+            </a>
+        </div>
+        <div>
+            <a class="carousel-control-next" href="#demo" data-slide="next" style="position:fixed;">
+                <span class="carousel-control-next-icon"></span>
+            </a>
+        </div>
+    </div>
+</div>
+<style at="Head">
+    .modal {
+        background-color: rgba(0,0,0,0.8);
+        z-index: 1250;
+    }
+    .max-img img {
+        max-height: 100%;
+        max-width: 100%;
+    }
+    .item-img img {
+        position: relative;
+        float: left;
+    }
+</style>
+<script at="Foot">
+    $(function () {
+        function movItems(reIndex) {
+            items.each(function (index, item) {
+                $(item).stop(true, false).animate({ "left": 85 * reIndex * -1 + "px" }, 500)
+            })
+        }
+        const $mask = document.querySelector("#mask");
+        const $dialog = document.querySelector("#demo");
+        fuckScrollChaining($dialog, $mask);
+        touchItem($(".carousel-inner"), function (startX, endX) {
+            var distance = Math.abs(startX - endX);
+            var offset = 30;
+            if (distance > offset) {
+                if (startX > endX) {
+                    $('.carousel-control-next').click();
+                } else {
+                    $('.carousel-control-prev').click();
+                }
+            }
+        });
+        let configuation = {
+            subtree: true,
+            childList: true,
+            attributes: true,
+            attributeOldValue: true
+        };
+        let lisent = new $.SourcePoint.Monitor(configuation);
+        let items = $(".carousel-indicators li");
+        let total = items.length;
+        let start = 0;
+        let max = 3;
+        //modal 底部小图列表
+        lisent.Observe($(".carousel-indicators")[0], function (a) {
+            a.forEach(function (changeItem) {
+                if (changeItem.attributeName != "class" || !changeItem.oldValue) return;
+                if (changeItem.oldValue.indexOf("active") < 0) {
+                    let index = items.index(changeItem.target);
+                    start = index;
+                    //if (lazyImgs[index]) $(lazyImgs[index]).trigger("appear");
+                    let reIndex = index - max;
+                    if (index + max > total) {
+                        reIndex = total - max;
+                    }
+                    reIndex += 2;
+                    movItems(reIndex);
+                }
+            })
+        })
+        if (items.length) items[0].click();
+        let oldStart = start;
+        let reIndex = oldStart;
+        touchItem($(".carousel-indicators"), function (startX, endX) {
+            var distance = Math.abs(startX - endX);
+            var offset = 30;
+            if (start != oldStart) reIndex = start;
+            if (distance > offset) {
+                if (startX > endX) {
+                    let min = total - max;
+                    reIndex = Math.min(min, reIndex + 3);
+                    if (reIndex <= min && total > max) reIndex += 1;
+                    movItems(reIndex);
+                } else {
+                    reIndex = Math.max(0, reIndex - 3);
+                    if (reIndex > 0) reIndex -= 1;
+                    movItems(reIndex);
+                }
+            }
+            oldStart = start;
+        })
+        $("#imgs img").each(function (index, item) {
+            $(item).click(function () {
+                if (items[index]) items[index].click();
+            })
+        })
+    })
+</script>

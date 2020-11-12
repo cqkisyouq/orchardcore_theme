@@ -1,0 +1,16 @@
+﻿@{
+    string imgUrl = Model.ContentItem.Content.AtlasPart.Cover;
+    if (string.IsNullOrEmpty(imgUrl)==false)
+    {
+        imgUrl = await Orchard.AssetProfileUrlAsync(imgUrl, ConstString.Image_Template_Grid);
+    }
+}
+<div class="m-b-15 pos-relative">
+    <a display-for="@Model.ContentItem" class="wrap-pic-w hov1 trans-03" target="_blank">
+        <img  src="@imgUrl" alt="@Model.ContentItem.Content.AtlasPart.Name" />
+    </a>
+    <div class="p-t-5">
+        <h5 style="text-align:center;">@Model.ContentItem.Content.AtlasPart.Name</h5>
+        <div class="p-t-5 m-b-5">@Model.ContentItem.Content.AtlasPart.Description</div>
+    </div>
+</div>

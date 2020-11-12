@@ -1,0 +1,25 @@
+﻿@{
+    List<string> ids = Model.ContentItem.Content.PanelItemContent?.Items?.ContentItemIds?.ToObject<List<string>>();
+    if (ids == null) return;
+    var contents = await Orchard.GetContentItemsByIdAsync(ids);
+}
+<div class="row container">
+    <ul>
+        @foreach (var item in contents)
+        {
+            string subtitle = item.Content.BlogPost.Subtitle?.Text;
+            <li class="bad-bor1 m-b-12 m-r-10 p-b-12 float-l">
+                @if (item.DisplayText?.Length > 10)
+                {
+                    <a display-for="item" class="f1-s-5 cl3 hov-cl10 trans-03" data-toggle="tooltip" title="@item.DisplayText" target="_blank">
+                        @item.DisplayText.Ellipsize(10, ConstString.Default_Ellipsis)
+                    </a>
+                }
+                else
+                {
+                    <a display-for="item" class="f1-s-5 cl3 hov-cl10 trans-03" target="_blank">@item.DisplayText</a>
+                }
+            </li>
+        }
+    </ul>
+</div>

@@ -1,0 +1,60 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using OrchardCore.Entities
+@using OrchardCore.Settings
+@using OrchardCore.Users
+@using OrchardCore.Users.Models
+@inject IMembershipService memberService
+@inject SignInManager<IUser> SignInManager
+@inject UserManager<IUser> UserManager;
+@{
+    var userCanRegister = Site.As<RegistrationSettings>().UsersCanRegister == UserRegistrationType.AllowRegistration;
+    var disableLocalLogin = Site.As<LoginSettings>().DisableLocalLogin;
+}
+<div class="utf-container-menu-block fix-utf-menu-desktop">
+    <!-- Header desktop -->
+    <div class="utf-container-menu-block">
+        <div class="topbar">
+            <div class="utf-content-topbar container h-100">
+                <div class="utf-left-topbar">
+                    @*@if (User.Identity.IsAuthenticated == false)
+                    {
+                        @if (!disableLocalLogin)
+                        {
+                            <a href="/login" class="utf-left-topbar-item">登录</a>
+                        }
+                        @if (userCanRegister)
+                        {
+                            <a href="/Register" class="utf-left-topbar-item">注册</a>
+                        }
+                    }*@
+                </div>
+                @if (User.Identity.IsAuthenticated)
+                {
+                    var user = User.FindFirst("nickname");
+                    <div class="utf-right-topbar">
+                        <a href="#">
+                            <span class="fa fa-user"></span>
+                        </a>
+                        <span style="color:white;">@(user?.Value ?? User.Identity.Name)</span>
+                        <div class="float-r">
+                            <form action="/Users/LogOff" method="post" class="form-inline">
+                                @Html.AntiForgeryToken()
+                                <button type="submit" class="btn btn-link nav-link" role="button">
+                                    <i class="fa fa-sign-out" aria-hidden="true"></i>注销
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+        @await RenderSectionAsync("Header")
+    </div>
+    @await DisplayAsync(await New.Menu(Alias: "alias:braksn-menu"))
+</div>
+
+<script at="Foot">
+    $(function () {
+        $("[data-toggle=tooltip]").tooltip();
+    })
+</script>

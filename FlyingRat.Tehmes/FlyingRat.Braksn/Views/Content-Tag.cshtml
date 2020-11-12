@@ -1,0 +1,24 @@
+﻿<section class="bg0 p-t-25 p-b-0">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-10 col-lg-8 p-b-30">
+                @{
+                    <!-- Item post -->
+                    @await DisplayAsync(Model.Content.ContentsMetadata);
+                    @await DisplayAsync(Model.Content.TermPart)
+                    Model.Content.TermPart.Pager.Metadata.Alternates.Add("Search__Pager");
+                    <!-- Pagination -->
+                    @await DisplayAsync(Model.Content.TermPart.Pager);
+                }
+            </div>
+            <div class="col-md-10 col-lg-4 p-b-30">
+                @{
+                    var parentItem = await Orchard.GetContentItemByIdAsync((string)Model.Content.TermPart.TaxonomyContentItemId);
+                    var model = New.SidebarPart(SidebarPart: parentItem.Content.SidebarPart);
+                    @await DisplayAsync(await model);
+                }
+            </div>
+        </div>
+    </div>
+</section>
+

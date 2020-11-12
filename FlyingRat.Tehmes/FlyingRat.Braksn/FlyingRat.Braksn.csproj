@@ -1,0 +1,31 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
+
+  <PropertyGroup>
+	<TargetFramework>netcoreapp3.1</TargetFramework>
+	<AddRazorSupportForMvc>true</AddRazorSupportForMvc>
+  </PropertyGroup>
+
+  <ItemGroup>
+	<FrameworkReference Include="Microsoft.AspNetCore.App" />
+  </ItemGroup>
+
+  <ItemGroup>
+	<EmbeddedResource Remove="bundleconfig.json" />
+	<None Include="bundleconfig.json">
+	  <CopyToPublishDirectory>Never</CopyToPublishDirectory>
+	</None>
+  </ItemGroup>
+
+  <ItemGroup>
+	<PackageReference Include="BuildBundlerMinifier" Version="3.2.449" />
+	<ProjectReference Include="..\..\..\..\sources\OrchardCore\src\OrchardCore.Modules\OrchardCore.Contents\OrchardCore.Contents.csproj" />
+	<ProjectReference Include="..\..\..\..\sources\OrchardCore\src\OrchardCore.Modules\OrchardCore.Media\OrchardCore.Media.csproj" />
+	<ProjectReference Include="..\..\..\..\sources\OrchardCore\src\OrchardCore.Modules\OrchardCore.Menu\OrchardCore.Menu.csproj" />
+	<ProjectReference Include="..\..\..\..\sources\OrchardCore\src\OrchardCore.Modules\OrchardCore.Taxonomies\OrchardCore.Taxonomies.csproj" />
+	<ProjectReference Include="..\..\..\..\sources\OrchardCore\src\OrchardCore.Modules\OrchardCore.Users\OrchardCore.Users.csproj" />
+	<ProjectReference Include="..\..\..\..\sources\OrchardCore\src\OrchardCore\OrchardCore.ContentManagement\OrchardCore.ContentManagement.csproj" />
+	<ProjectReference Include="..\..\..\..\sources\OrchardCore\src\OrchardCore\OrchardCore.DisplayManagement\OrchardCore.DisplayManagement.csproj" />
+	<ProjectReference Include="..\..\..\..\sources\OrchardCore\src\OrchardCore\OrchardCore.ResourceManagement\OrchardCore.ResourceManagement.csproj" />
+	<ProjectReference Include="..\..\..\..\sources\OrchardCore\src\OrchardCore\OrchardCore.Theme.Targets\OrchardCore.Theme.Targets.csproj" />
+  </ItemGroup>
+</Project>

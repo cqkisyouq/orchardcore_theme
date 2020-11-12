@@ -1,0 +1,5 @@
+﻿@model OrchardCore.Taxonomies.ViewModels.TermPartViewModel
+@foreach (var item in Model.ContentItems)
+{
+    @await Orchard.DisplayAsync(item, "Summary");
+}

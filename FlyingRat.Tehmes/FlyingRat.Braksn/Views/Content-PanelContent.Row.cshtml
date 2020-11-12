@@ -1,0 +1,10 @@
+﻿@{
+    Model.Remove("GroupLocation");
+    Model.Remove("PanelContent-PanelShape");
+    Model.Remove("PanelContent-LinkItem");
+    Model.Remove("ContentsMetadata");
+    foreach (var item in Model.Items)
+    {
+        @await DisplayAsync(item)
+    }
+}

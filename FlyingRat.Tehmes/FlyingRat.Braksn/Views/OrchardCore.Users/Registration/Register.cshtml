@@ -1,0 +1,55 @@
+﻿@model OrchardCore.Users.ViewModels.RegisterViewModel
+@{ 
+    ViewLayout = "Layout__Login";
+    var LT = T.GetAllStrings(false)
+        .Where(x => x.Name.StartsWith("OrchardCore.Users.Views.Registration.Register|", StringComparison.OrdinalIgnoreCase))
+        .ToDictionary(x => x.Name.Remove(0, "OrchardCore.Users.Views.Registration.Register|".Length));
+}
+<section class="bg0 p-t-30 p-b-30">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <!-- Form Box Start -->
+                <div class="form-content-box">
+                    <div class="details">
+                        <h3>@LT["Register"]</h3>
+                        <!-- Form start -->
+                        <form asp-controller="Registration" asp-action="Register" asp-route-returnurl="@ViewData["ReturnUrl"]" method="post">
+                            <div class="form-group">
+                                <input asp-for="UserName" required class="form-control" autofocus placeholder="@LT["Username"]" />
+                                <span asp-validation-for="UserName" class="text-danger float-l"></span>
+                            </div>
+                            <div class="form-group">
+                                <input asp-for="Email" type="email" required class="form-control" placeholder="@LT["Email"]" />
+                                <span asp-validation-for="Email" class="text-danger float-l"></span>
+                            </div>
+                            <div class="form-group">
+                                <input asp-for="Password" required class="form-control" placeholder="@LT["Password"]最少六位" />
+                                <span asp-validation-for="Password" class="text-danger float-l"></span>
+                            </div>
+                            <div class="form-group">
+                                <input asp-for="ConfirmPassword" class="form-control" placeholder="@LT["Confirm password"]" />
+                                <span asp-validation-for="ConfirmPassword" class="text-danger float-l"></span>
+                            </div>
+                            @await RenderSectionAsync("AfterRegister", required: false)
+                            <div class="form-group m-t-20 m-b-0">
+                                <button type="submit" class="btn btn-primary btn-block">@LT["Register"]</button>
+                            </div>
+                        </form>
+                        <!-- Social List -->
+                        @*<ul class="social-list clearfix">
+                <li><a href="#" class="facebook-bg"><i class="fab fa-facebook"></i></a></li>
+                <li><a href="#" class="google-bg"><i class="fab fa-google-plus"></i></a></li>
+                <li><a href="#" class="twitter-bg"><i class="fab fa-twitter"></i></a></li>
+                <li><a href="#" class="linkedin-bg"><i class="fab fa-linkedin"></i></a></li>
+            </ul>*@
+                    </div>
+                    <!-- Footer -->
+                    <div class="footer"><span>已有帐号? <a href="/login">去登录</a></span> </div>
+                    <div asp-validation-summary="All" class="text-danger float-l"></div>
+                </div>
+                <!-- Form Box End -->
+            </div>
+        </div>
+    </div>
+</section>

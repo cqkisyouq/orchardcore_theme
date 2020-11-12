@@ -1,0 +1,23 @@
+﻿<div class="container">
+    <div class="flex-wr-sb-c trending-nows-aera">
+        <!--<div class="f2-s-1 p-r-30 m-tb-6">
+          <a href="index.html" class="breadcrumb-item f1-s-3 cl9"> Home </a>
+          <span class="breadcrumb-item f1-s-3 cl9"></span>
+        </div>-->
+        <div class="f2-s-1 p-r-30 trending-news size-w-0 m-tb-6 flex-wr-s-c">
+            <span class="cl2 p-r-8 tranding-title">站内信息：</span>
+            <span class="dis-inline-block cl6 slide100-txt pos-relative size-w-0" data-in="fadeInUp" data-out="fadeOutDown">
+                <span class="tranding-item-list dis-inline-block slide100-txt-item animated visible-false">欢迎访问本站，双桥人的家！</span>
+                <span class="tranding-item-list dis-inline-block slide100-txt-item animated visible-false">@DateTime.UtcNow.ToLocalTime().ToString("yyyy年MM月dd日")</span>
+            </span>
+        </div>
+        <form action="/searchform" method="get">
+            <div class="pos-relative news-search-aera size-a-2 bo-1-rad-4 of-hidden bocl11">
+                <input class="f1-s-1 cl6 plh9 s-full p-l-15 p-r-45" type="text" name="Terms" value="@Model.Terms" placeholder="Search" />
+                <button type="submit" class="flex-c-c size-a-1 ab-t-r fs-20 cl2 hov-cl10 trans-03">
+                    <i class="zmdi zmdi-search"></i>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

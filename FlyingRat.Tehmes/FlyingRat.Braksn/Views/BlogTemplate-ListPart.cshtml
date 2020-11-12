@@ -1,0 +1,10 @@
+﻿@inject OrchardCore.ContentManagement.Display.IContentItemDisplayManager displayManager
+@inject OrchardCore.DisplayManagement.ModelBinding.IUpdateModelAccessor updateModel;
+@foreach (ContentItem item in Model.ContentItems)
+{
+    string layout = item.Content.PanelLayout.Layout.Text;
+    dynamic shape = await displayManager.BuildDisplayAsync(item, updateModel.ModelUpdater);
+    shape.Content.Metadata.Type = $"Content_{layout}";
+    shape.Content.Metadata.Alternates.Add($"Content_{layout}__{item.ContentType}");
+    @await DisplayAsync(shape.Content)
+}

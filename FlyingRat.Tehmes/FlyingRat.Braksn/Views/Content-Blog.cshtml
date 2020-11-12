@@ -1,0 +1,18 @@
+﻿@await DisplayAsync(Model.Content.ContentsMetadata)
+@{ 
+    var sidebarPart = Model.Content.SidebarPart;
+    Model.Content.Remove("SidebarPart");
+    Model.Content.Remove("Blog-Image");
+}
+<section class="bg0 p-t-25 p-b-0">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-10 col-lg-8 p-b-60">
+                @await DisplayAsync(Model.Content)
+            </div>
+            <div class="col-md-10 col-lg-4 p-b-30">
+                @await DisplayAsync(sidebarPart)
+            </div>
+        </div>
+    </div>
+</section>

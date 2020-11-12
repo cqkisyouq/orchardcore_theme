@@ -1,0 +1,45 @@
+﻿<!DOCTYPE html>
+<html lang="@Orchard.CultureName()">
+<head>
+    <title>@await DisplayAsync(await New.PageTitle())</title>
+    @await RenderSectionAsync("HeadMeta", false)
+    <meta asp-name="author" content="" />
+    <meta asp-name="keywords" content="" />
+    <meta asp-name="description" content="" />
+    <meta asp-name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta asp-name="theme-color" content="#1da1f2" />
+    <meta asp-name="httpequiv" http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+    <resources Type="Meta" />
+    <link asp-src="~/FlyingRat.Braksn/favicon.ico" type="image/x-icon" rel="shortcut icon" />
+    <style asp-name="braksn-bundle" at="Foot" version="1.0"></style>
+    <script asp-name="website-bundle" at="Head" version="1.0"></script>
+    <script asp-name="braksn-bundle" at="Foot" version="1.0"></script>
+    <resources Type="Stylesheet"></resources>
+    <resources Type="HeadLink"></resources>
+    <resources Type="HeadScript"></resources>
+</head>
+<body>
+    <Header>
+        @await RenderSectionAsync("Header")
+        <menu alias="alias:braksn-menu"></menu>
+    </Header>
+    <div class="main-body">
+        @await DisplayAsync(await New.SearchForm())
+        @await RenderSectionAsync("Message", false)
+        <div class="container p-b-50">
+            <div class="row">
+                <div class="col-md-2"></div>
+                <div class="col-md-8">
+                    @await RenderBodyAsync()
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer>
+        @await RenderSectionAsync("Footer", false)
+    </footer>
+    <div class="utf-back-to-top" id="myBtn"><span class="symbol-utf-back-to-top"><span class="fas fa-angle-up"></span></span></div>
+    @await DisplayAsync(await New.Video())
+    <resources Type="FootScript"></resources>
+</body>
+</html>

@@ -1,0 +1,100 @@
+﻿@{
+    var blogPost = Model.ContentItem.Content.BlogPost;
+    string img = blogPost.Image?.Paths.Count > 0 ? blogPost.Image.Paths[0] : default(string);
+    ContentItem itemCategory = null;
+    if (string.IsNullOrEmpty(img) == false)
+    {
+        img = Orchard.ResourceUrl(img);
+        string taxonomyId = blogPost.Category.TaxonomyContentItemId;
+        List<string> termsIds = blogPost.Category.TermContentItemIds?.ToObject<List<string>>();
+        if (termsIds.Count > 0)
+        {
+            itemCategory = await Orchard.GetTaxonomyTermAsync(taxonomyId, termsIds.First());
+        }
+    }
+    string subtitle = blogPost?.Subtitle.Text;
+
+    string listContentItemId = Model.ContentItem.Content?.ContainedPart?.ListContentItemId;
+    if (string.IsNullOrEmpty(listContentItemId)) listContentItemId = Model.ContentItem.Content?.TermPart.TaxonomyContentItemId;
+    var parentItem = await Orchard.GetContentItemByIdAsync(listContentItemId);
+
+    string tagTaxonomyId = blogPost?.Tags.TaxonomyContentItemId;
+    List<string> tagTermsIds = blogPost?.Tags.TermContentItemIds?.ToObject<List<string>>();
+    List<ContentItem> tags = new List<ContentItem>();
+    if (tagTermsIds != null)
+    {
+        foreach (var termsId in tagTermsIds)
+        {
+            var item = await Orchard.GetTaxonomyTermAsync(tagTaxonomyId, termsId);
+            tags.Add(item);
+        }
+    }
+    string title = Model.ContentItem.DisplayText;
+}
+<section class="bg0 p-b-40 p-t-25">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-10 col-lg-8 p-b-60">
+                <div class="p-r-0-sr991">
+                    <div class="p-b-30 bad-bor1 m-b-40">
+                        @if (title?.Length > 45)
+                        {
+                            <h3 class="f1-l-3 cl2 p-b-16 p-t-15 respon2 text-center" data-toggle="tooltip" title="@title">@title.Ellipsize(45, ConstString.Default_Ellipsis)</h3>
+                        }
+                        else
+                        {
+                            <h3 class="f1-l-3 cl2 p-b-16 p-t-15 respon2 text-center">@title</h3>
+                        }
+                        <div class="flex-wr-s-s p-b-30 justify-content-center">
+                            <span class="f1-s-3 cl8 m-r-15">
+                                <a href="#" class="f1-s-4 cl8 hov-cl10 trans-03">@Model.ContentItem.Author</a>
+                                <span class="m-rl-3">-</span> <span> @Model.ContentItem.CreatedUtc?.ToLocalTime().ToString(ConstString.Date_Format)</span>
+                            </span>
+                            <!--<span class="f1-s-3 cl8 m-r-15"> 4281 点击 </span>
+                            <a href="#" class="f1-s-3 cl8 hov-cl10 trans-03 m-r-15"> 0 回复 </a> -->
+                        </div>
+                        @if (string.IsNullOrEmpty(img) == false)
+                        {
+                            <div class="pic-max-w m-b-30 pos-relative">
+                                @if (itemCategory != null)
+                                {
+                                    <span class="dis-sub-item-tag">@itemCategory.DisplayText</span>
+                                }
+                                <img asset-src="@img" alt="@title" />
+                            </div>
+                        }
+                        @if (string.IsNullOrWhiteSpace(subtitle) == false)
+                        {
+                            <blockquote>@subtitle</blockquote>
+                        }
+                        <div class="f1-s-11 cl6 p-b-15 content-blog">
+                            @await DisplayAsync(Model.Content.ContentsMetadata)
+                            @await DisplayAsync(Model.Content.MarkdownBodyPart)
+                        </div>
+                        @if ((tags?.Any()) == true)
+                        {
+                            <div class="flex-s-s p-t-10 p-b-25">
+                                <span class="f1-s-12 cl5 m-r-8">Tags:</span>
+                                <div class="flex-wr-s-s size-w-0">
+
+                                    @foreach (var tag in tags)
+                                    {
+                                        <a display-for="tag" class="f1-s-12 cl8 hov-link1 m-r-15" target="_blank">#@tag.DisplayText</a>
+                                    }
+                                </div>
+                            </div>
+                        }
+                        @await DisplayAsync(Model.Share)
+                    </div>
+                    @await DisplayAsync(Model.Content.AttachContentPart)
+                </div>
+            </div>
+            <div class="col-md-10 col-lg-4 p-b-30">
+                @if (parentItem?.Content.SidebarPart != null)
+                {
+                    @await DisplayAsync(await New.SidebarPart(SidebarPart: parentItem.Content.SidebarPart))
+                }
+            </div>
+        </div>
+    </div>
+</section>

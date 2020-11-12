@@ -1,0 +1,32 @@
+﻿@model FlyingRat.Module.Atlas.ViewModel.AtalsPartEditViewModel
+<div class="form-group">
+    <div class="input-group row col-md-4">
+        <input asp-for="Name" class="form-control" autofocus placeholder="图集名" />
+    </div>
+</div>
+<div class="form-group">
+    <div class="input-group row col-md-4">
+        <input asp-for="Cover" class="form-control" autofocus  placeholder="封面"/>
+    </div>
+</div>
+<div class="form-group">
+    <div class="input-group row col-md-4">
+        <input asp-for="Path" class="form-control" autofocus placeholder="图集图径"/>
+    </div>
+</div>
+<div class="form-group">
+    <div class="input-group row col-md-4">
+        <input asp-for="Description" class="form-control" autofocus  placeholder="描述"/>
+    </div>
+</div>
+<div class="form-group">
+    <div class="input-group row col-md-4">
+        <input asp-for="PageSize" type="number" min="1" class="form-control" placeholder="每页大小"/>
+    </div>
+</div>
+<div class="form-group">
+    <div class="custom-control custom-checkbox">
+        <input type="checkbox" class="custom-control-input" asp-for="UseAtlas" />
+        <label class="custom-control-label" asp-for="UseAtlas">@T["Use Atlas"]</label>
+    </div>
+</div>

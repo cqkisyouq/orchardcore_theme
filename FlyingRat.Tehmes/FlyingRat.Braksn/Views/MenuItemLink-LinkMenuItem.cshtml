@@ -1,0 +1,5 @@
+﻿@{
+    ContentItem contentItem = Model.ContentItem;
+    var linkMenuItemPart = contentItem.Content["LinkMenuItemPart"];
+}
+<a href="@Url.Content((string)linkMenuItemPart.Url)">@linkMenuItemPart.Name</a>

@@ -1,0 +1,13 @@
+﻿@{ 
+    var index = 1;
+}
+<div class="category">
+    <ul>
+        @foreach (var item in Model.Items)
+        {
+            item.TermContentItem.Content.Index = index;
+            @await DisplayAsync(item)
+            index++;
+        }
+    </ul>
+</div>

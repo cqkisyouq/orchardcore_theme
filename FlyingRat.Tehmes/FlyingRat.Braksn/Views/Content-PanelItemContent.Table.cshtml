@@ -1,0 +1,94 @@
+﻿@{
+    List<string> ids = Model.ContentItem.Content.PanelItemContent?.Items?.ContentItemIds?.ToObject<List<string>>();
+    if (ids == null) return;
+    var contents = await Orchard.GetContentItemsByIdAsync(ids);
+    var first = contents.FirstOrDefault();
+    if (first == null) return;
+
+    var leftBlogPost = first.Content.BlogPost;
+    string leftImg = leftBlogPost.Image?.Paths.Count > 0 ? leftBlogPost.Image.Paths[0] : ConstString.DefaultImage;
+    leftImg = await Orchard.ImageProfileResizeUrlAsync(leftImg, ConstString.Image_Template_Table_Left);
+    string leftCategoryTaxonomyId = leftBlogPost.Category.TaxonomyContentItemId;
+    List<string> leftCategoryTermsIds = leftBlogPost.Category.TermContentItemIds?.ToObject<List<string>>();
+    ContentItem leftCategory = null;
+    if (leftCategoryTermsIds.Count > 0)
+    {
+        leftCategory = await Orchard.GetTaxonomyTermAsync(leftCategoryTaxonomyId, leftCategoryTermsIds.First());
+    }
+    string firstSubtitle = leftBlogPost.Subtitle?.Text;
+    int index = Model.ContentItem.Content.Index;
+    if (index > 0) index %= 2;
+    var tagColor = index > 0 ? $"col-item-{index}" : "";
+    bool hasCover = Model.ContentItem.Content.ContentSettingPart?.HasCoverList ?? true;
+}
+
+<div class="col-sm-6 p-r-15 p-r-15-sr991">
+    <!-- Item post -->
+    <div class="m-b-30 pos-relative">
+        <a display-for="first" class="wrap-pic-w hov1 trans-03" target="_blank">
+            @if (leftCategory != null)
+            {
+                <span class="dis-sub-item-tag @tagColor">@leftCategory.DisplayText.Ellipsize(10, ConstString.Default_Ellipsis)</span>
+            }
+            <img asset-src="@leftImg" alt="@first.DisplayText" />
+        </a>
+        <div class="p-t-15">
+            <a display-for="first" class="f1-s-5 cl2 hov-cl10 trans-03" target="_blank">
+                @if (first.DisplayText?.Length > 12)
+                {
+                    <h5 data-toggle="tooltip" title="@first.DisplayText">@first.DisplayText.Ellipsize(12, ConstString.Default_Ellipsis)</h5>
+                }
+                else
+                {
+                    <h5>@first.DisplayText</h5>
+                }
+                <div class="p-t-7">@firstSubtitle.Ellipsize(60, ConstString.Default_Ellipsis)</div>
+            </a>
+        </div>
+    </div>
+</div>
+
+<div class="col-sm-6 p-r-15 p-r-15-sr991">
+    @foreach (var item in contents.Skip(1))
+    {
+        var blogPost = item.Content.BlogPost;
+        string categoryTaxonomyId = blogPost.Category.TaxonomyContentItemId;
+        List<string> categoryTermsIds = blogPost.Category.TermContentItemIds?.ToObject<List<string>>();
+        ContentItem category = null;
+        if (categoryTermsIds.Count > 0)
+        {
+            category = await Orchard.GetTaxonomyTermAsync(categoryTaxonomyId, categoryTermsIds.First());
+        }
+        string subtitle = blogPost.Subtitle?.Text;
+        var showToggle = hasCover ? item.DisplayText?.Length > 12 : item.DisplayText?.Length > 16;
+        <div class="flex-wr-sb-s m-b-30 pos-relative">
+            @if (hasCover)
+            {
+                string img = blogPost.Image?.Paths.Count > 0 ? blogPost.Image.Paths[0] : ConstString.DefaultImage;
+                img = await Orchard.ImageProfileResizeUrlAsync(img, ConstString.Image_Template_Table_Right);
+                <a display-for="item" class="size-w-1 wrap-pic-w hov1 trans-03" target="_blank">
+                    @if (category != null)
+                    {
+                        <span class="smll-item-tag @tagColor">@category.DisplayText.Ellipsize(10, ConstString.Default_Ellipsis)</span>
+                    }
+                    <img asset-src="@img" alt="@item.DisplayText" />
+                </a>
+            }
+            <div class="size-w-@(hasCover?2:3)">
+                <a display-for="item" class="f1-s-5 cl3 hov-cl10 trans-03" target="_blank">
+                    @if (showToggle)
+                    {
+                        <h5 data-toggle="tooltip" title="@item.DisplayText">@item.DisplayText.Ellipsize(hasCover ? 12 : 16, ConstString.Default_Ellipsis)</h5>
+                    }
+                    else
+                    {
+                        <h5>@item.DisplayText</h5>
+                    }
+                    <div class="p-t-10">
+                        @subtitle.Ellipsize(hasCover ? 26 : 36, ConstString.Default_Ellipsis)
+                    </div>
+                </a>
+            </div>
+        </div>
+    }
+</div>

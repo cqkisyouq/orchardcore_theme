@@ -1,0 +1,36 @@
+﻿@{
+    var request = Orchard.HttpContext.Request;
+    int page = Model.Page??0;
+    int totalCount = Model.TotalItemCount??0;
+    int pageSize = Model.PageSize??0;
+    int pageCount = (int)Math.Ceiling(totalCount*1.0 / pageSize);
+    if (pageCount <= 1) return;
+    var basePath = $"{request.Path.Value}?{(request.Query.ContainsKey("Terms") ? $"Terms={request.Query["Terms"]}&" : "")}";
+    var last = Math.Max(1, page - 1);
+    var next = Math.Min(page + 1, pageCount);
+    var lastClass = page - 1 < 1 ? "btn disabled" : "";
+    var nextClass = page + 1 > pageCount ? "btn disabled" : "";
+    var interval = 5;
+    var start = page + interval > pageCount ? Math.Max(1, pageCount - interval) : Math.Max(1, page - 1);
+    var end = start + interval < pageCount ? start + interval : pageCount;
+}
+<div class="flex-wr-c-c m-rl--7 p-t-5">
+    <a href="@(basePath)page=1" class="flex-c-c pagi-item hov-btn1 trans-03 m-all-3 @lastClass">
+        <i class="fa fa-angle-left"></i>
+        <i class="fa fa-angle-left"></i>
+    </a>
+    <a href="@(basePath)page=@last" class="flex-c-c pagi-item hov-btn1 trans-03 m-all-3 @lastClass"><i class="fa fa-angle-left"></i></a>
+    @if (start != 1)
+    {<a class="flex-c-c pagi-item hov-btn1 trans-03 m-all-3 btn disabled">...</a>}
+    @for (int index = start; index <= end; index++)
+    {
+        <a href="@(basePath)page=@index" class="flex-c-c pagi-item hov-btn1 trans-03 m-all-3 @(index == page ?"pagi-active btn disabled" :"")">@index</a>
+    }
+    @if (end != pageCount)
+    {<a class="flex-c-c pagi-item hov-btn1 trans-03 m-all-3 btn disabled">...</a>}
+    <a href="@(basePath)page=@next" class="flex-c-c pagi-item hov-btn1 trans-03 m-all-3 @nextClass"><i class="fa fa-angle-right"></i></a>
+    <a href="@(basePath)page=@pageCount" class="flex-c-c pagi-item hov-btn1 trans-03 m-all-3 @nextClass">
+        <i class="fa fa-angle-right"></i>
+        <i class="fa fa-angle-right"></i>
+    </a>
+</div>

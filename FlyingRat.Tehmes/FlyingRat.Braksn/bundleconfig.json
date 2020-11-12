@@ -1,0 +1,45 @@
+﻿[
+  {
+    "inputFiles": [
+      "wwwroot/js/animsition.min.js",
+      "wwwroot/js/popper.js",
+      "wwwroot/js/bootstrap.min.js",
+      "wwwroot/js/custom_jquery.js"
+    ],
+    "outputFileName": "wwwroot/bundle/bundle.js",
+    "minify": {
+      "enabled": true,
+      "gzip": true
+    }
+  },
+  {
+    "inputFiles": [
+      "wwwroot/js/jquery-3.2.1.min.js",
+      "wwwroot/js/jquery.lazyload.js",
+      "wwwroot/js/SourcePoint.js",
+      "wwwroot/js/website.js"
+    ],
+    "outputFileName": "wwwroot/bundle/website.js",
+    "minify": {
+      "enabled": true,
+      "gzip": true
+    }
+  },
+  {
+    "outputFileName": "wwwroot/bundle/bundle.css",
+    "inputFiles": [
+      "wwwroot/css/bootstrap.min.css",
+      "wwwroot/fonts/fontawesome-5.0.8/css/fontawesome-all.min.css",
+      "wwwroot/fonts/iconic/css/material-design-iconic-font.min.css",
+      "wwwroot/css/animate.css",
+      "wwwroot/css/hamburgers.min.css",
+      "wwwroot/css/animsition.min.css",
+      "wwwroot/css/util.min.css",
+      "wwwroot/css/stylesheet.css"
+    ],
+    "minify": {
+      "enabled": true,
+      "gzip": true
+    }
+  }
+]

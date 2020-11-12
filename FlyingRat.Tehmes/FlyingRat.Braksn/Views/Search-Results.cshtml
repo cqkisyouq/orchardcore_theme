@@ -1,0 +1,14 @@
+﻿@inject OrchardCore.ContentManagement.Display.IContentItemDisplayManager displayManager
+@inject OrchardCore.DisplayManagement.ModelBinding.IUpdateModelAccessor updateModel
+@{
+    var hasItem = false;
+}
+@if (Model.ContentItems != null)
+{
+    foreach (ContentItem item in Model.ContentItems)
+    {
+        if (hasItem == false) hasItem = !hasItem;
+        var shape = await displayManager.BuildDisplayAsync(item, updateModel.ModelUpdater, "Summary");
+        @await DisplayAsync(shape)
+    }
+}

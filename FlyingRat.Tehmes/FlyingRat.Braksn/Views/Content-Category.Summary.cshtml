@@ -1,0 +1,8 @@
+﻿@{ 
+    int index = Model.ContentItem.Content.Index;
+    index = Math.Max(1, index % 5);
+    var style = $"background: url(/media/category{index}.jpg);";
+}
+<a display-for="Model.ContentItem" style="@style" target="_blank">
+    <span>@Model.ContentItem</span>
+</a>

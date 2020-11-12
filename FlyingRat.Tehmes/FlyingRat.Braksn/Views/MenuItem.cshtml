@@ -1,0 +1,29 @@
+﻿@{
+    var content = Model.ContentItem.Content;
+    string url = content.LinkMenuItemPart?.Url?.ToString().TrimStart('~')?? content.ContentMenuItemPart?.Url?.ToString().TrimStart('~');
+    string liClass = "";
+    if (url?.ToLower() == Orchard.HttpContext.Request.Path.Value.ToLower())
+    {
+        liClass = "main-menu-active";
+    }
+    Model.Metadata.Alternates.Clear();
+    Model.Metadata.Type = "MenuItemLink";
+    var hasMobile = Orchard.HttpContext.Items.ContainsKey("IsMobile");
+    Orchard.HttpContext.Items.Remove("IsMobile");
+}
+<li class="@liClass @(Model.Items.Count>0?"dropdown":"")">
+    @await DisplayAsync(Model)
+    @if (Model.Items.Count <= 0) return;
+    <ul class="sub-menu@(hasMobile?"-m":"")">
+        @foreach (var item in Model.Items)
+        {
+            @await DisplayAsync(item)
+        }
+    </ul>
+    @if (hasMobile)
+    {
+        <span class="arrow-main-menu-m">
+            <i class="fa fa-angle-right" aria-hidden="true"></i>
+        </span>
+    }
+</li>

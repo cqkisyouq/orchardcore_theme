@@ -1,0 +1,46 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <!-- Necessary as we reference the Project and not the Package -->
+  <Import Project="..\..\..\sources\OrchardCore\src\OrchardCore\OrchardCore.Application.Cms.Core.Targets\OrchardCore.Application.Cms.Core.Targets.props" />
+
+  <PropertyGroup>
+	<TargetFramework>netcoreapp3.1</TargetFramework>
+	<PreserveCompilationReferences>true</PreserveCompilationReferences>
+	<TieredCompilation>true</TieredCompilation>
+	<UserSecretsId>a2479523-b57d-4ebd-ab0d-37f1c91ccf62</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+	<Compile Remove="App_Data\**" />
+	<Content Remove="App_Data\**" />
+	<EmbeddedResource Remove="App_Data\**" />
+	<None Remove="App_Data\**" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+	<Content Update="NLog.config">
+	  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	</Content>
+  </ItemGroup>
+
+  <ItemGroup>
+	<ProjectReference Include="..\..\..\sources\OrchardCore\src\OrchardCore\OrchardCore.Application.Cms.Targets\OrchardCore.Application.Cms.Targets.csproj" />
+	<ProjectReference Include="..\..\..\sources\OrchardCore\src\OrchardCore\OrchardCore.Logging.NLog\OrchardCore.Logging.NLog.csproj" />
+	<ProjectReference Include="..\FlyingRat.Modules\FlyingRat.Module\FlyingRat.Module.csproj" />
+	<ProjectReference Include="..\FlyingRat.Tehmes\FlyingRat.Braksn\FlyingRat.Braksn.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="4688251_www.psxcc.com.pfx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+  <!-- Necessary as we reference the Project and not the Package -->
+  <Import Project="..\..\..\sources\OrchardCore\src\OrchardCore\OrchardCore.Application.Cms.Core.Targets\OrchardCore.Application.Cms.Core.Targets.targets" />
+  <Import Project="..\..\..\sources\OrchardCore\src\OrchardCore\OrchardCore.Application.Targets\OrchardCore.Application.Targets.targets" />
+
+  <Import Project="..\..\..\sources\OrchardCore\src\OrchardCore.Build\OrchardCore.Commons.targets" />
+
+</Project>

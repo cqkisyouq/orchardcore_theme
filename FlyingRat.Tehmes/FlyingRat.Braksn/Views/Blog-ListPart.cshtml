@@ -1,0 +1,7 @@
+﻿@inject OrchardCore.DisplayManagement.ModelBinding.IUpdateModelAccessor updateModel
+
+@foreach (ContentItem item in Model.ContentItems)
+{
+    @await Orchard.DisplayAsync(item, "Summary", updater: updateModel.ModelUpdater)
+}
+@await DisplayAsync(Model.Pager) 

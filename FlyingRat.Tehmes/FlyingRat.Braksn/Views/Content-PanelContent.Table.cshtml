@@ -1,0 +1,31 @@
+﻿@{
+    var index = 1;
+    var link = Model.Parent?.ContentItem?.Content.PanelContent?.LinkItem;
+    Model.ListPart.ListPart.Content.Index = Model.Index;
+}
+<div class="tab01 p-b-20">
+    <div class="tab01-head how2 how2-cl2 bocl12 flex-s-c m-r-10 m-r-0-sr991">
+        <h3 class="f1-m-2 cl13 tab01-title">@Model.Parent?.ContentItem?.DisplayText</h3>
+        <ul class="nav nav-tabs" role="tablist">
+            @foreach (var item in Model.ListPart.ContentItems)
+            {
+                var tableHref = $"#tab{Model.Index}-{index}";
+                <li class="nav-item"> <a class="nav-link @(index ==1?"active":"")" data-toggle="tab" href="@tableHref" role="tab">@item</a> </li>
+                index++;
+            }
+            @*<li class="nav-item-more dropdown dis-none">
+                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#"> <i class="fa fa-ellipsis-h"></i> </a>
+                    <ul class="dropdown-menu">
+                    </ul>
+                </li>*@
+        </ul>
+        @if (link != null)
+        {
+            <a href="@link.Url" class="tab01-link f1-s-1 cl9 hov-cl10 trans-03" target="_blank">@link.Text</a>
+        }
+    </div>
+    <div class="tab-content p-t-35">
+        @await DisplayAsync(Model.ListPart)
+    </div>
+    @await DisplayAsync(Model.AttachContentPart)
+</div>

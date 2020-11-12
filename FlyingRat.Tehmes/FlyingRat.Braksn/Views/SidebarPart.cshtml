@@ -1,0 +1,129 @@
+﻿@{
+    var sidebarPart = Model.SidebarPart;
+    if (sidebarPart == null) return;
+
+    string categoryTaxonomyId = sidebarPart?.Categories.TaxonomyContentItemId;
+    List<string> categoryTermsIds = sidebarPart?.Categories.TermContentItemIds?.ToObject<List<string>>();
+    List<ContentItem> categories = new List<ContentItem>();
+
+    if (categoryTermsIds != null)
+    {
+        foreach (var termsId in categoryTermsIds)
+        {
+            var item = await Orchard.GetTaxonomyTermAsync(categoryTaxonomyId, termsId);
+            categories.Add(item);
+        }
+
+    }
+
+    string tagTaxonomyId = sidebarPart?.PopularTags.TaxonomyContentItemId;
+    List<string> tagTermsIds = sidebarPart?.PopularTags.TermContentItemIds?.ToObject<List<string>>();
+    List<ContentItem> tags = new List<ContentItem>();
+    if (tagTermsIds != null)
+    {
+        foreach (var termsId in tagTermsIds)
+        {
+            var item = await Orchard.GetTaxonomyTermAsync(tagTaxonomyId, termsId);
+            tags.Add(item);
+        }
+    }
+
+    List<string> contentIds = sidebarPart?.PopularPost?.ContentItemIds?.ToObject<List<string>>();
+    var items = contentIds?.Count > 0 ? await Orchard.GetContentItemsByIdAsync(contentIds) : null;
+    string banner = sidebarPart?.Banner.Paths?.Count > 0 ? sidebarPart.Banner.Paths[0] : default(string);
+    string bannerUrl = sidebarPart?.BannerUrl?.Url;
+}
+<!-- Sidebar -->
+<div class="p-l-10 p-rl-0-sr991 p-t-25">
+    <!-- Banner Ad -->
+    @if (string.IsNullOrWhiteSpace(banner) == false)
+    {
+        //banner = Orchard.ImageResizeUrl(banner, 240, 240);
+        banner =await Orchard.ImageProfileResizeUrlAsync(banner, ConstString.Image_Sidebar_Banner);
+        <div class="flex-c-s p-b-50">
+            <a href="@bannerUrl" @(bannerUrl==null?default(string):"target='_blank'")>
+                <img asset-src="@banner" alt="@sidebarPart.BannerUrl.Text" width="330" height="250" />
+            </a>
+        </div>
+    }
+    <!-- Categories -->
+    @if ((categories?.Count) > 0)
+    {
+        var index = 1;
+        <div class="p-b-55">
+            <div class="how2 how2-cl2 flex-s-c m-b-35">
+                <h3 class="f1-m-2 cl3 tab01-title">分类栏目</h3>
+            </div>
+            <div class="category">
+                <ul>
+                    @foreach (var category in categories)
+                    {
+                        var imgIndex = Math.Max(1, index % 5);
+                        index++;
+                        var style = $"background: url(/media/category{imgIndex}.jpg);";
+                        <li>
+                            <a display-for="category" style="@style"  target="_blank">
+                                <span> @category.DisplayText </span>
+                            </a>
+                        </li>
+                    }
+                </ul>
+            </div>
+        </div>
+    }
+    @if ((items?.Any()) == true)
+    {
+        <div class="p-b-20">
+            <div class="how2 how2-cl2 flex-s-c">
+                <h3 class="f1-m-2 cl3 tab01-title">热门推荐</h3>
+            </div>
+            <ul class="p-t-35">
+                @foreach (ContentItem item in items)
+                {
+                    var blogPost = item.Content.BlogPost;
+                    string img = blogPost.Image.Paths?.Count>0?blogPost.Image.Paths[0]:ConstString.DefaultImage;
+                    img =await Orchard.ImageProfileResizeUrlAsync(img, ConstString.Image_Sidebar_Hot);
+                    var dateTime = item.ContentItem.CreatedUtc?.ToLocalTime().ToString(ConstString.Date_Format);
+                    string subtitle = blogPost.Subtitle?.Text;
+                    <li class="flex-wr-sb-s bad-bor1 m-b-15 p-b-15">
+                        <a display-for="@item" class="size-w-10 wrap-pic-w hov1 trans-03"  target="_blank">
+                            <img width="100" height="84" alt="@item.DisplayText" asset-src="@img" />
+                        </a>
+                        <div class="size-w-11">
+                            <span class="cl8 txt-center">
+                                <a display-for="@item" class="f1-s-6 cl8 hov-cl10 trans-03" data-toggle="tooltip" title="@item.DisplayText"  target="_blank">
+                                    @item.DisplayText.Ellipsize(8, ConstString.Default_Ellipsis)
+                                </a>
+                                <span class="f1-s-3 m-rl-3"> - </span>
+                                <span class="f1-s-3">@dateTime</span>
+                            </span>
+                            <h6 class="p-t-5">
+                                <a display-for="@item" class="f1-s-5 cl3 hov-cl10 trans-03"  target="_blank">
+                                    @subtitle.Ellipsize(34, ConstString.Default_Ellipsis)
+                                </a>
+                            </h6>
+                        </div>
+                    </li>
+                }
+            </ul>
+        </div>
+    }
+
+    <!-- Popular Tag -->
+    @if ((tags?.Any()) == true)
+    {
+        <div class="p-b-55">
+            <div class="how2 how2-cl2 flex-s-c m-b-30">
+                <h3 class="f1-m-2 cl3 tab01-title">标签墙</h3>
+            </div>
+            <div class="flex-wr-s-s m-rl--5">
+                @foreach (var tag in tags)
+                {
+                    <a display-for="tag" class="flex-c-c size-h-1 bo-1-rad-4 bocl12 f1-s-1 cl8 hov-btn2 trans-03 p-rl-15 p-tb-5 m-all-5"  target="_blank">
+                        <span data-toggle="tooltip" title="@tag.DisplayText"> @tag.DisplayText.Ellipsize(12, ConstString.Default_Ellipsis)</span>
+                    </a>
+                }
+            </div>
+        </div>
+    }
+</div>

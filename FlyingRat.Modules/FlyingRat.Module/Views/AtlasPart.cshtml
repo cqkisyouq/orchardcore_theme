@@ -1,0 +1,23 @@
+﻿@model FlyingRat.Module.Atlas.ViewModel.AtlasPartViewModel
+@{
+    if (Model.UseAtlas == false) return;
+}
+<section class="container m-b-35 p-t-25">
+    <div class="m-b-10" style="display:flex;justify-content:center;">
+        <h3>@Model.Name</h3>
+    </div>
+    <div class="row m-rl--1">
+        @foreach (var item in Model.Medias)
+        {
+            var img = Orchard.AssetUrl(item.Path);
+            <div class="col-sm-6 col-md-4">
+                <div class="m-b-35 pos-relative">
+                    <a class="wrap-pic-w hov1 trans-03" src="@img">
+                        <img class="img-thumbnail" alt="@item.Name" asset-src="@item.Path"/>
+                    </a>
+                </div>
+            </div>
+        }
+    </div>
+    @await DisplayAsync(Model.Pager)
+</section>

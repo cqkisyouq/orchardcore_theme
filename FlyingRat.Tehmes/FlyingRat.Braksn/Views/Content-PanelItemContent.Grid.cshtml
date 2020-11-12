@@ -1,0 +1,46 @@
+﻿@{
+    List<string> ids = Model.ContentItem.Content.PanelItemContent?.Items?.ContentItemIds?.ToObject<List<string>>();
+    if (ids == null) return;
+    var contents = await Orchard.GetContentItemsByIdAsync(ids);
+}
+@foreach (var item in contents)
+{
+    var blogPost = item.Content.BlogPost;
+    string img = blogPost.Image?.Paths.Count > 0 ? blogPost.Image.Paths[0] : ConstString.DefaultImage;
+    img = await Orchard.ImageProfileResizeUrlAsync(img, ConstString.Image_Template_Grid);
+    string categoryTaxonomyId = blogPost.Category.TaxonomyContentItemId;
+    List<string> categoryTermsIds = blogPost.Category.TermContentItemIds?.ToObject<List<string>>();
+    ContentItem category = null;
+    if (categoryTermsIds.Count > 0)
+    {
+        category = await Orchard.GetTaxonomyTermAsync(categoryTaxonomyId, categoryTermsIds.First());
+    }
+    string subtitle = blogPost.Subtitle?.Text;
+    <div class="col-sm-6 col-md-4">
+        <div class="m-b-35 pos-relative">
+            <a display-for="item" class="wrap-pic-w hov1 trans-03" target="_blank">
+                @if (category != null)
+                {
+                    <span class="dis-sub-item-tag">@category?.DisplayText.Ellipsize(10, ConstString.Default_Ellipsis)</span>
+                }
+                <img asset-src="@img" alt="@item.DisplayText" />
+            </a>
+            <div class="p-t-16">
+                @if (item.DisplayText?.Length > 10)
+                {
+                    <a display-for="item" class="f1-s-5 cl3 hov-cl10 trans-03" data-toggle="tooltip" title="@item.DisplayText" target="_blank">
+                        <h5>@item.DisplayText.Ellipsize(10, ConstString.Default_Ellipsis)</h5>
+                        <div class="p-t-7">@subtitle.Ellipsize(43, ConstString.Default_Ellipsis)</div>
+                    </a>
+                }
+                else
+                {
+                    <a display-for="item" class="f1-s-5 cl3 hov-cl10 trans-03" target="_blank">
+                        <h5>@item.DisplayText</h5>
+                        <div class="p-t-7">@subtitle.Ellipsize(43, ConstString.Default_Ellipsis)</div>
+                    </a>
+                }
+            </div>
+        </div>
+    </div>
+}

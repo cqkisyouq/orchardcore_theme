@@ -1,0 +1,23 @@
+﻿<!-- Menu Mobile -->
+<div class="menu-mobile">
+    <ul class="main-menu-m">
+        @foreach (var item in Model.Items)
+        {
+            Orchard.HttpContext.Items["IsMobile"] = true;
+            @await DisplayAsync(item)
+        }
+    </ul>
+</div>
+<div class="utf-wrap-main-nav">
+    <div class="main-nav">
+        <!-- Menu desktop -->
+        <nav class="utf-menu-desktop">
+            <ul class="main-menu">
+                @foreach (var item in Model.Items)
+                {
+                    @await DisplayAsync(await New.MenuItem(ContentItem: item.ContentItem, Level: item.Level, Menu: item.Menu))
+                }
+            </ul>
+        </nav>
+    </div>
+</div>

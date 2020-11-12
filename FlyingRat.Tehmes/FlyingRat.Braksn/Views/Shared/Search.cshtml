@@ -1,0 +1,32 @@
+﻿@{
+    ViewLayout = "Layout__Search";
+    Model.Pager?.Metadata.Alternates.Add("Search__Pager");
+    var list = Model.SearchResults?.ContentItems as IEnumerable<ContentItem>;
+    var contentItem = list?.FirstOrDefault();
+    var contentParent = contentItem != null && contentItem.Content.ContainedPart!=null ? await Orchard.GetContentItemByIdAsync((string)contentItem.Content.ContainedPart.ListContentItemId) : null;
+}
+@await DisplayAsync(Model.SearchForm)
+<section class="bg0 p-t-25 p-b-0">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-10 col-lg-8 p-b-60">
+                <!-- Item post -->
+                @await DisplayAsync(Model.SearchResults)
+                @if (contentItem == null)
+                {
+                    <p class="alert alert-warning">没搜索到内容</p>
+                }
+                <!-- Pagination -->
+                @await DisplayAsync(Model.Pager)
+            </div>
+            <!-- Sidebar -->
+            <div class="col-md-10 col-lg-4 p-b-30">
+                @if (contentParent != null)
+                {
+                    @await DisplayAsync(await New.SidebarPart(SidebarPart: contentParent.Content.SidebarPart))
+                }
+            </div>
+        </div>
+    </div>
+</section>
+
