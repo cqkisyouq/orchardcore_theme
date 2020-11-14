@@ -25,5 +25,6 @@
     <Folder Include="Atlas\Services\" />
     <Folder Include="ContentSetting\Handlers\" />
     <Folder Include="ContentSetting\Services\" />
+    <Folder Include="wwwroot\" />
   </ItemGroup>
 </Project>

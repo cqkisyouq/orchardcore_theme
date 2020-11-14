@@ -62,6 +62,12 @@ namespace FlyingRat.Module
                 pattern: "Content/Create",
                 defaults: new { controller = contentController, action =nameof(ContentController.Create) }
             );
+            routes.MapAreaControllerRoute(
+                name: "Content.Edit",
+                areaName: "FlyingRat.Module",
+                pattern: "Content/Edit",
+                defaults: new { controller = contentController, action = nameof(ContentController.Edit) }
+            );
         }
     }
 

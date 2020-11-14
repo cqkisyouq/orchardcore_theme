@@ -3,7 +3,6 @@ using FlyingRat.Module.ViewModel;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Localization;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using OrchardCore.ContentManagement;
 using OrchardCore.ContentManagement.Display;
 using OrchardCore.ContentManagement.Metadata;
@@ -77,7 +76,7 @@ namespace FlyingRat.Module.Controllers
             var model = new PublishContentViewModel()
             {
                 TargetId = id,
-                Shape= shape
+                Shape = shape
             };
             return View(model);
         }
@@ -106,6 +105,51 @@ namespace FlyingRat.Module.Controllers
             await _contentManager.CreateAsync(contentItem, VersionOptions.Draft);
             await _contentManager.PublishAsync(contentItem);
             _notifier.Success(H["发布成功"]);
+            return RedirectToAction("index");
+        }
+
+        public async ValueTask<IActionResult> Edit(string id)
+        {
+            if (string.IsNullOrEmpty(id)) return NotFound();
+            var contentItem = await _session.Query<ContentItem>()
+                    .With<ContentItemIndex>(x => x.ContentItemId == id
+                        && x.Owner == User.Identity.Name
+                        && x.Latest
+                        && x.ContentType == PublishContent)
+                    .FirstOrDefaultAsync();
+            if (contentItem == null) return NotFound();
+
+            var model = new EditContentViewModel()
+            {
+                Title = contentItem.DisplayText,
+                Content = contentItem.Content.MarkdownBodyPart?.Markdown,
+                Description = contentItem.Content.BlogPost?.Subtitle?.Text,
+                TargetId = id,
+            };
+            return View(model);
+        }
+
+        [HttpPost, ActionName("Edit")]
+        [FormValueRequired("submit.Publish")]
+        public async ValueTask<IActionResult> EditPost(EditContentViewModel model)
+        {
+            if (string.IsNullOrEmpty(model.TargetId)) return NotFound();
+            var contentItem = await _session.Query<ContentItem>()
+                    .With<ContentItemIndex>(x => x.ContentItemId == model.TargetId
+                        && x.Owner == User.Identity.Name
+                        && x.Latest
+                        && x.ContentType == PublishContent)
+                    .FirstOrDefaultAsync();
+            if (contentItem == null) return NotFound();
+            contentItem = await _contentManager.GetAsync(model.TargetId, VersionOptions.DraftRequired);
+            var shape = await _contentItemDisplayManager.UpdateEditorAsync(contentItem, _updateModelAccessor.ModelUpdater, false);
+            if (!ModelState.IsValid)
+            {
+                _session.Cancel();
+                return View("Edit", model);
+            }
+            await _contentManager.PublishAsync(contentItem);
+            _notifier.Success(H["发布成功"]);   
             return RedirectToAction("index");
         }
     }
