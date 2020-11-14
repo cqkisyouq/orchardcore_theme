@@ -287,3 +287,4 @@ __pycache__/
 *.odx.cs
 *.xsd.cs
 /FlyingRat/wwwroot/is-cache
+App_Data

@@ -4010,6 +4010,8 @@ div.main-body {
 }
 .content-blog p{
 	margin-top:10px;
+	word-break:break-all;
+	word-wrap:break-word;
 }
 .content-blog img {
 	max-width: 100%;

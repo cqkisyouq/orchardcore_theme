@@ -6,7 +6,6 @@
                     <!-- Item post -->
                     @await DisplayAsync(Model.Content.ContentsMetadata);
                     @await DisplayAsync(Model.Content.TermPart)
-                    Model.Content.TermPart.Pager.Metadata.Alternates.Add("Search__Pager");
                     <!-- Pagination -->
                     @await DisplayAsync(Model.Content.TermPart.Pager);
                 }

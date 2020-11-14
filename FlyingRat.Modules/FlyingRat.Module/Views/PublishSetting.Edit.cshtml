@@ -1,0 +1,18 @@
+﻿@using YesSql
+@using OrchardCore.ContentManagement.Records
+@inject OrchardCore.ContentManagement.Metadata.IContentDefinitionManager _contentDefinitionManager
+@inject YesSql.ISession session
+@model FlyingRat.Module.Setting.ViewModel.PublishSettingViewModel
+@{
+    var listItems=await session.QueryIndex<ContentItemIndex>(x => x.ContentType== "Blog" && x.Published).ListAsync();
+    var items =listItems.Select(x => new SelectListItem(x.DisplayText, x.ContentItemId)).ToList();
+}
+<div class="form-group">
+    <label>Blog 选择</label>
+    <select class="form-control" asp-for="ListContentItemIds" multiple>
+        @foreach(var item  in items)
+        {
+            <option value="@item.Value">@item.Text</option>
+        }
+    </select>
+</div>

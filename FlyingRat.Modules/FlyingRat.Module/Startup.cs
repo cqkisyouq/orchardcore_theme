@@ -50,6 +50,13 @@ namespace FlyingRat.Module
             );
 
             routes.MapAreaControllerRoute(
+               name: "Content.Select",
+               areaName: "FlyingRat.Module",
+               pattern: "Content/Index",
+               defaults: new { controller = contentController, action = nameof(ContentController.Index) }
+           );
+
+            routes.MapAreaControllerRoute(
                 name: "Content.Create",
                 areaName: "FlyingRat.Module",
                 pattern: "Content/Create",

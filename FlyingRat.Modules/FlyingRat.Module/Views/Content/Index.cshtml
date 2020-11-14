@@ -1,0 +1,33 @@
+﻿@model IEnumerable<OrchardCore.ContentManagement.ContentItem>
+@{
+    int index = 0;
+    var contenItem = Model.FirstOrDefault();
+}
+<section class="bg0 p-t-25 p-b-0">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-10 col-lg-8 p-b-30">
+                <div class="category">
+                    <ul>
+                        @foreach (var item in Model)
+                        {
+                            index = Math.Max(1, index % 5);
+                            var style = $"background: url(/media/category{index}.jpg) no-repeat;background-size:100%;";
+                            <li><a asp-action="create" asp-route-id="@item.ContentItemId" style="@style"><span>@item.DisplayText</span></a></li>
+                            index++;
+                        }
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-10 col-lg-4 p-b-30">
+                @{
+                    if (contenItem != null)
+                    {
+                        var model = New.SidebarPart(SidebarPart: contenItem.Content.SidebarPart);
+                        @await DisplayAsync(await model);
+                    }
+                }
+            </div>
+        </div>
+    </div>
+</section>

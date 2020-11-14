@@ -44,3 +44,14 @@
     },
     Category = "Content Management"
 )]
+
+[assembly: Feature(
+    Id = "FlyingRat.PublishSetting",
+    Name = "PublishSetting",
+    Description = "The  module allows front setting user content to publish",
+    Dependencies = new[]
+    {
+        "FlyingRat.Module"
+    },
+    Category = "Content Management"
+)]

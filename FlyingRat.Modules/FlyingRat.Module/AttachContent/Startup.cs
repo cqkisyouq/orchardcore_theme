@@ -21,8 +21,7 @@ namespace FlyingRat.Module.AttachContent
             // Liquid Part
             services.AddScoped<IShapeTableProvider, AttachContentShape>();
             services.AddContentPart<AttachContentPart>()
-                  .UseDisplayDriver<AttachContentPartDisplayDriver>()
-                  .AddHandler<AttchContentPartHandler>();
+                  .UseDisplayDriver<AttachContentPartDisplayDriver>();
                   
             services.AddScoped<IContentTypePartDefinitionDisplayDriver, AttachContentPartSettingsDisplayDriver>();
             services.AddScoped<IDataMigration, Migrations>();
