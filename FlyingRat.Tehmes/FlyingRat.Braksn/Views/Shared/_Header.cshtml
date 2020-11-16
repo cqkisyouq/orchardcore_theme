@@ -17,16 +17,16 @@
             <div class="utf-content-topbar container h-100">
                 <div class="utf-left-topbar">
                     @*@if (User.Identity.IsAuthenticated == false)
-                    {
-                        @if (!disableLocalLogin)
                         {
-                            <a href="/login" class="utf-left-topbar-item">登录</a>
-                        }
-                        @if (userCanRegister)
-                        {
-                            <a href="/Register" class="utf-left-topbar-item">注册</a>
-                        }
-                    }*@
+                            @if (!disableLocalLogin)
+                            {
+                                <a href="/login" class="utf-left-topbar-item">登录</a>
+                            }
+                            @if (userCanRegister)
+                            {
+                                <a href="/Register" class="utf-left-topbar-item">注册</a>
+                            }
+                        }*@
                 </div>
                 @if (User.Identity.IsAuthenticated)
                 {
@@ -52,9 +52,3 @@
     </div>
     @await DisplayAsync(await New.Menu(Alias: "alias:braksn-menu"))
 </div>
-
-<script at="Foot">
-    $(function () {
-        $("[data-toggle=tooltip]").tooltip();
-    })
-</script>

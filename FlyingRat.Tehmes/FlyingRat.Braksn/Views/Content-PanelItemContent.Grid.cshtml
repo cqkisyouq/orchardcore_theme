@@ -21,23 +21,23 @@
             <a display-for="item" class="wrap-pic-w hov1 trans-03" target="_blank">
                 @if (category != null)
                 {
-                    <span class="dis-sub-item-tag">@category?.DisplayText.Ellipsize(10, ConstString.Default_Ellipsis)</span>
+                    <span class="dis-sub-item-tag">@category?.DisplayText.EllipsizeUtf8(10)</span>
                 }
                 <img asset-src="@img" alt="@item.DisplayText" />
             </a>
             <div class="p-t-16">
-                @if (item.DisplayText?.Length > 10)
+                @if (item.DisplayText?.Length > 16)
                 {
                     <a display-for="item" class="f1-s-5 cl3 hov-cl10 trans-03" data-toggle="tooltip" title="@item.DisplayText" target="_blank">
-                        <h5>@item.DisplayText.Ellipsize(10, ConstString.Default_Ellipsis)</h5>
-                        <div class="p-t-7">@subtitle.Ellipsize(43, ConstString.Default_Ellipsis)</div>
+                        <h5>@item.DisplayText.EllipsizeUtf8(16)</h5>
+                        <div class="p-t-7">@subtitle.EllipsizeUtf8(41)</div>
                     </a>
                 }
                 else
                 {
                     <a display-for="item" class="f1-s-5 cl3 hov-cl10 trans-03" target="_blank">
                         <h5>@item.DisplayText</h5>
-                        <div class="p-t-7">@subtitle.Ellipsize(43, ConstString.Default_Ellipsis)</div>
+                        <div class="p-t-7">@subtitle.EllipsizeUtf8(41)</div>
                     </a>
                 }
             </div>

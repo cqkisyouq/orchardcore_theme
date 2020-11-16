@@ -80,6 +80,15 @@ namespace FlyingRat.Braksn
             manifest.DefineStyle("braksn-bundle")
                 .SetUrl($"{root}/bundle/bundle.min.css")
                 .SetVersion("1.0");
+
+            #region page
+
+            manifest.DefineScript("braksn-atlas")
+                .SetUrl($"{root}/bundle/atlas.min.js")
+                .SetVersion("1.0");
+
+            #endregion
+
             #endregion
         }
     }

@@ -14,6 +14,8 @@
         public static string Image_Sidebar_Hot { get; } = "sidebar-hot";
         public static string Image_Sidebar_Banner { get; } = "sidebar-banner";
         public static string Image_List { get; } = "list-img";
+        public static string Image_carousel_Orgin { get; } = "carousel-orgin";
+        public static string Image_carousel_indicat { get; } = "carousel-indicat";
         #endregion
 
         public static string Default_Ellipsis { get; } = "...";

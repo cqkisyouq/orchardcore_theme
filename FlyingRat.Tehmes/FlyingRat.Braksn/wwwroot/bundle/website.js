@@ -550,14 +550,12 @@ function touchItem($item, touchendCallback) {
                     if (node.nodeName == "IMG") {
                         node.dataset.original = node.src;
                         node.src = "/FlyingRat.Braksn/images/loadding.gif";
-                        //node.attributes.removeNamedItem("src")
                     }
                 })
             }
         })
     });
     $(function () {
-        //observe.takeRecords();
         observe.disconnect();
         var lazyoption = { event: "scroll mouseover", effect: "fadeIn", threshold: 100 };
         $("img").lazyload(lazyoption);
@@ -566,5 +564,6 @@ function touchItem($item, touchendCallback) {
                 lazyoption.update();
             }, 260)
         }
+        $("[data-toggle=tooltip]").tooltip();
     })
 })(jQuery)

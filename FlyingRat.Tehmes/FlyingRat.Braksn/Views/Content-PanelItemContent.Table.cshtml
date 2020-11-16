@@ -28,21 +28,21 @@
         <a display-for="first" class="wrap-pic-w hov1 trans-03" target="_blank">
             @if (leftCategory != null)
             {
-                <span class="dis-sub-item-tag @tagColor">@leftCategory.DisplayText.Ellipsize(10, ConstString.Default_Ellipsis)</span>
+                <span class="dis-sub-item-tag @tagColor">@leftCategory.DisplayText.EllipsizeUtf8(10)</span>
             }
             <img asset-src="@leftImg" alt="@first.DisplayText" />
         </a>
         <div class="p-t-15">
             <a display-for="first" class="f1-s-5 cl2 hov-cl10 trans-03" target="_blank">
-                @if (first.DisplayText?.Length > 12)
+                @if (first.DisplayText?.Length > 16)
                 {
-                    <h5 data-toggle="tooltip" title="@first.DisplayText">@first.DisplayText.Ellipsize(12, ConstString.Default_Ellipsis)</h5>
+                    <h5 data-toggle="tooltip" title="@first.DisplayText">@first.DisplayText.EllipsizeUtf8(16)</h5>
                 }
                 else
                 {
                     <h5>@first.DisplayText</h5>
                 }
-                <div class="p-t-7">@firstSubtitle.Ellipsize(60, ConstString.Default_Ellipsis)</div>
+                <div class="p-t-7">@firstSubtitle.EllipsizeUtf8(65)</div>
             </a>
         </div>
     </div>
@@ -60,7 +60,7 @@
             category = await Orchard.GetTaxonomyTermAsync(categoryTaxonomyId, categoryTermsIds.First());
         }
         string subtitle = blogPost.Subtitle?.Text;
-        var showToggle = hasCover ? item.DisplayText?.Length > 12 : item.DisplayText?.Length > 16;
+        var showToggle = hasCover ? item.DisplayText?.Length > 10 : item.DisplayText?.Length > 15;
         <div class="flex-wr-sb-s m-b-30 pos-relative">
             @if (hasCover)
             {
@@ -69,7 +69,7 @@
                 <a display-for="item" class="size-w-1 wrap-pic-w hov1 trans-03" target="_blank">
                     @if (category != null)
                     {
-                        <span class="smll-item-tag @tagColor">@category.DisplayText.Ellipsize(10, ConstString.Default_Ellipsis)</span>
+                        <span class="smll-item-tag @tagColor">@category.DisplayText.EllipsizeUtf8(10)</span>
                     }
                     <img asset-src="@img" alt="@item.DisplayText" />
                 </a>
@@ -78,14 +78,14 @@
                 <a display-for="item" class="f1-s-5 cl3 hov-cl10 trans-03" target="_blank">
                     @if (showToggle)
                     {
-                        <h5 data-toggle="tooltip" title="@item.DisplayText">@item.DisplayText.Ellipsize(hasCover ? 12 : 16, ConstString.Default_Ellipsis)</h5>
+                        <h5 data-toggle="tooltip" title="@item.DisplayText">@item.DisplayText.EllipsizeUtf8(hasCover ? 10 : 15)</h5>
                     }
                     else
                     {
                         <h5>@item.DisplayText</h5>
                     }
                     <div class="p-t-10">
-                        @subtitle.Ellipsize(hasCover ? 26 : 36, ConstString.Default_Ellipsis)
+                        @subtitle.EllipsizeUtf8(hasCover ? 26 : 35)
                     </div>
                 </a>
             </div>

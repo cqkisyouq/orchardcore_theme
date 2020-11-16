@@ -92,14 +92,14 @@
                         <div class="size-w-11">
                             <span class="cl8 txt-center">
                                 <a display-for="@item" class="f1-s-6 cl8 hov-cl10 trans-03" data-toggle="tooltip" title="@item.DisplayText"  target="_blank">
-                                    @item.DisplayText.Ellipsize(8, ConstString.Default_Ellipsis)
+                                    @item.DisplayText.EllipsizeUtf8(8)
                                 </a>
                                 <span class="f1-s-3 m-rl-3"> - </span>
                                 <span class="f1-s-3">@dateTime</span>
                             </span>
                             <h6 class="p-t-5">
                                 <a display-for="@item" class="f1-s-5 cl3 hov-cl10 trans-03"  target="_blank">
-                                    @subtitle.Ellipsize(34, ConstString.Default_Ellipsis)
+                                    @subtitle.EllipsizeUtf8(35)
                                 </a>
                             </h6>
                         </div>
@@ -120,7 +120,7 @@
                 @foreach (var tag in tags)
                 {
                     <a display-for="tag" class="flex-c-c size-h-1 bo-1-rad-4 bocl12 f1-s-1 cl8 hov-btn2 trans-03 p-rl-15 p-tb-5 m-all-5"  target="_blank">
-                        <span data-toggle="tooltip" title="@tag.DisplayText"> @tag.DisplayText.Ellipsize(12, ConstString.Default_Ellipsis)</span>
+                        <span data-toggle="tooltip" title="@tag.DisplayText"> @tag.DisplayText.EllipsizeUtf8(12)</span>
                     </a>
                 }
             </div>

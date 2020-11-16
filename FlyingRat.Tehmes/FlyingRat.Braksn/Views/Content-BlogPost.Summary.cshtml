@@ -9,7 +9,7 @@
     if (string.IsNullOrEmpty(listContentItemId)) listContentItemId = Model.ContentItem.Content?.TermPart.TaxonomyContentItemId;
     var parentItem = await Orchard.GetContentItemByIdAsync(listContentItemId);
     bool hasCover = parentItem.Content.ContentSettingPart?.HasCoverList ?? true;
-    var showToggle = hasCover ? title?.Length > 30 : title.Length > 52;
+    var showToggle = hasCover ? title?.Length > 18 : title?.Length > 26;
 }
 <div class="p-r-0-sr991 how-bor2 m-b-10 p-b-5">
     <div class="pos-relative flex-wr-sb-s">
@@ -41,7 +41,7 @@
             <h2>
                 @if (showToggle)
                 {
-                    <a display-for="Model.ContentItem" class="f1-l-2 cl2 hov-cl10 trans-03 respon2" data-toggle='tooltip' title='@title' target="_blank">@title.Ellipsize(hasCover ? 30 : 52, ConstString.Default_Ellipsis)</a>
+                    <a display-for="Model.ContentItem" class="f1-l-2 cl2 hov-cl10 trans-03 respon2" data-toggle='tooltip' title='@title' target="_blank">@title.EllipsizeUtf8(hasCover ? 18 : 26)</a>
                 }
                 else
                 {
@@ -49,7 +49,7 @@
                 }
             </h2>
             <p class="f1-s-1 cl6 p-b-15">
-                @subtitle.Ellipsize(hasCover ? 85 : 120, ConstString.Default_Ellipsis)
+                @subtitle.EllipsizeUtf8(hasCover ? 81 : 120)
             </p>
         </div>
     </div>

@@ -12,7 +12,7 @@
                 @if (item.DisplayText?.Length > 10)
                 {
                     <a display-for="item" class="f1-s-5 cl3 hov-cl10 trans-03" data-toggle="tooltip" title="@item.DisplayText" target="_blank">
-                        @item.DisplayText.Ellipsize(10, ConstString.Default_Ellipsis)
+                        @item.DisplayText.EllipsizeUtf8(10)
                     </a>
                 }
                 else

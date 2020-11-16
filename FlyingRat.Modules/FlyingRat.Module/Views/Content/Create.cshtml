@@ -3,7 +3,7 @@
 <div class="container">
     <div class="row">
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-        <form class="col-12" asp-action="Create" asp-route-returnUrl="@Context.Request.Query["ReturnUrl"]" method="post" enctype="multipart/form-data">
+        <form class="col-12" style="z-index:100;" asp-action="Create" asp-route-returnUrl="@Context.Request.Query["ReturnUrl"]" method="post" enctype="multipart/form-data">
             <div class="form-group">
                 <input class="form-control" asp-for="Title" placeholder="请输入 标题" type="text" onchange="setValue(this,'partTitle')" />
                 <span asp-validation-for="Title" class="text-danger float-l"></span>

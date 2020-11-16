@@ -25,12 +25,12 @@
                     <div class="flex-col-e-s s-full p-rl-25 p-tb-20">
                         @if (itemCategory != null)
                         {
-                            <a display-for="itemCategory" class="dis-block how1-child2 f1-s-2 cl0 bo-all-1 bocl0 bo-1-rad-4 hov-btn1 trans-03 p-rl-10 p-tb-4" target="_blank">@itemCategory.DisplayText.Ellipsize(10, ConstString.Default_Ellipsis)</a>
+                            <a display-for="itemCategory" class="dis-block how1-child2 f1-s-2 cl0 bo-all-1 bocl0 bo-1-rad-4 hov-btn1 trans-03 p-rl-10 p-tb-4" target="_blank">@itemCategory.DisplayText.EllipsizeUtf8(10)</a>
                         }
                         <h3 class="how1-child2 m-t-14">
                             @if (item.DisplayText?.Length > 32)
                             {
-                                <a display-for="item" class="how-txt1 size-h-1 f1-m-1 cl0 hov-cl10 trans-03" title="@item.DisplayText" data-toggle="tooltip" target="_blank">@item.DisplayText.Ellipsize(32, ConstString.Default_Ellipsis)</a>
+                                <a display-for="item" class="how-txt1 size-h-1 f1-m-1 cl0 hov-cl10 trans-03" title="@item.DisplayText" data-toggle="tooltip" target="_blank">@item.DisplayText.EllipsizeUtf8(32)</a>
                             }
                             else
                             {
@@ -38,7 +38,7 @@
                             }
                         </h3>
                         <span class="how1-child2 m-t-5">
-                            <span class="f1-s-4 cl11">@subtitle.Ellipsize(28, ConstString.Default_Ellipsis)</span>
+                            <span class="f1-s-4 cl11">@subtitle.EllipsizeUtf8(28)</span>
                         </span>
                     </div>
                 </div>

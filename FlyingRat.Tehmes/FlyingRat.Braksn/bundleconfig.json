@@ -41,5 +41,15 @@
       "enabled": true,
       "gzip": true
     }
+  },
+  {
+    "outputFileName": "wwwroot/bundle/atlas.js",
+    "inputFiles": [
+      "wwwroot/js/atlas.js"
+    ],
+    "minify": {
+      "enabled": true,
+      "gzip": true
+    }
   }
 ]
