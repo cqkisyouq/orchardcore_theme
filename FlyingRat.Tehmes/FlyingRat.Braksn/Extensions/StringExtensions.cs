@@ -4,12 +4,11 @@ using System.Text;
 
 public static class StringExtensions
 {
-    public static string EllipsizeUtf8(this string str, int count, string ellipsis="...")
+    public static string EllipsizeUtf8(this string str, int count, string ellipsis = "...")
     {
         if (string.IsNullOrEmpty(str) || str.Length <= count) return str;
         var index = 0;
         var step = 0;
-        var backCount = count;
         var spanString = str.AsSpan();
         while (index < count && index < spanString.Length)
         {
@@ -23,6 +22,6 @@ public static class StringExtensions
             else step -= 2;
             if (step >= 0) count++;
         }
-        return $"{spanString.Slice(0, count).ToString()}{(count > backCount ? "..." : default)}";
+        return $"{spanString.Slice(0, count).ToString()}{(count < spanString.Length ? "..." : default)}";
     }
 }

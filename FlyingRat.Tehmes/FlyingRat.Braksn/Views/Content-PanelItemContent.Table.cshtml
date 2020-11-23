@@ -60,7 +60,7 @@
             category = await Orchard.GetTaxonomyTermAsync(categoryTaxonomyId, categoryTermsIds.First());
         }
         string subtitle = blogPost.Subtitle?.Text;
-        var showToggle = hasCover ? item.DisplayText?.Length > 10 : item.DisplayText?.Length > 15;
+        var showToggle = hasCover ? item.DisplayText?.Length > 10 : item.DisplayText?.Length > 13;
         <div class="flex-wr-sb-s m-b-30 pos-relative">
             @if (hasCover)
             {
@@ -78,7 +78,7 @@
                 <a display-for="item" class="f1-s-5 cl3 hov-cl10 trans-03" target="_blank">
                     @if (showToggle)
                     {
-                        <h5 data-toggle="tooltip" title="@item.DisplayText">@item.DisplayText.EllipsizeUtf8(hasCover ? 10 : 15)</h5>
+                        <h5 data-toggle="tooltip" title="@item.DisplayText">@item.DisplayText.EllipsizeUtf8(hasCover ? 10 : 13)</h5>
                     }
                     else
                     {
