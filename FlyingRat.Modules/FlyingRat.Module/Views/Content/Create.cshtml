@@ -28,11 +28,13 @@
 </div>
 <style at="Head" asp-src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css"></style>
 <script at="Foot" asp-src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
+<script at="Foot" asp-name="braksn-validate"></script>
 <script at="Foot">
     function setValue(target, id) {
         $("#" + id).val($(target).val());
     }
     $(function () {
+        $.validator.setDefaults({ ignore:""});
         var simplemde = new SimpleMDE({
             element: document.getElementById("Content"),
             autoDownloadFontAwesome: false,

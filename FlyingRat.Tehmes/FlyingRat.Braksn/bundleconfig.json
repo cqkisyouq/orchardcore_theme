@@ -51,5 +51,16 @@
       "enabled": true,
       "gzip": true
     }
+  },
+  {
+    "inputFiles": [
+      "wwwroot/js/jquery.validate.js",
+      "wwwroot/js/jquery.validate.unobtrusive.js"
+    ],
+    "outputFileName": "wwwroot/bundle/validate.js",
+    "minify": {
+      "enabled": true,
+      "gzip": true
+    }
   }
 ]

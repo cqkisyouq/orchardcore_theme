@@ -73,6 +73,10 @@ namespace FlyingRat.Braksn
                 .SetUrl($"{root}/bundle/website.min.js")
                 .SetVersion("1.0");
 
+            manifest.DefineScript("braksn-validate")
+                .SetUrl($"{root}/bundle/validate.min.js")
+                .SetVersion("1.0");
+
             manifest.DefineScript("braksn-bundle")
                 .SetUrl($"{root}/bundle/bundle.min.js")
                 .SetVersion("1.0");
