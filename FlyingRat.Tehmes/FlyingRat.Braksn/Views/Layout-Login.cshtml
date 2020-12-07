@@ -2,7 +2,6 @@
 <html lang="@Orchard.CultureName()">
 <head>
     <title>@await DisplayAsync(await New.PageTitle())</title>
-    @await RenderSectionAsync("HeadMeta", false)
     <meta asp-name="author" content="" />
     <meta asp-name="keywords" content="" />
     <meta asp-name="description" content="" />
@@ -17,6 +16,7 @@
     <resources Type="Stylesheet"></resources>
     <resources Type="HeadLink"></resources>
     <resources Type="HeadScript"></resources>
+    @await RenderSectionAsync("HeadMeta", false)
 </head>
 <body>
     <Header>

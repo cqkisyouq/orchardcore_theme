@@ -1,6 +1,4 @@
-﻿@using OrchardCore.ResourceManagement
-@inject IResourceManager resourceManager
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="@Orchard.CultureName()">
 <head>
     @if (Orchard.HttpContext.Request.Path == "/")
@@ -11,7 +9,6 @@
     {
         <title>@await DisplayAsync(await New.PageTitle())</title>
     }
-    @await RenderSectionAsync("HeadMeta", false)
     <meta asp-name="author" content="" />
     <meta asp-name="keywords" content="" />
     <meta asp-name="description" content="" />
@@ -26,6 +23,7 @@
     <resources Type="Stylesheet"></resources>
     <resources Type="HeadLink"></resources>
     <resources Type="HeadScript"></resources>
+    @await RenderSectionAsync("HeadMeta", false)
 </head>
 <body>
     <Header>
