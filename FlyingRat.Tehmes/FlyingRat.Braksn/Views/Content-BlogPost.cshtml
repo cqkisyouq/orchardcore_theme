@@ -20,6 +20,7 @@
 
     string tagTaxonomyId = blogPost?.Tags.TaxonomyContentItemId;
     List<string> tagTermsIds = blogPost?.Tags.TermContentItemIds?.ToObject<List<string>>();
+    var words = new System.Text.StringBuilder();
     List<ContentItem> tags = new List<ContentItem>();
     if (tagTermsIds != null)
     {
@@ -28,8 +29,18 @@
             var item = await Orchard.GetTaxonomyTermAsync(tagTaxonomyId, termsId);
             tags.Add(item);
         }
+        words.AppendJoin(",", tags.Select(x => x.DisplayText));
     }
     string title = Model.ContentItem.DisplayText;
+    @await DisplayAsync(Model.Content.ContentsMetadata)
+    if (words.Length > 0)
+    {
+        <meta asp-name="keywords" content="@words.ToString()" />
+    }
+    if (!string.IsNullOrWhiteSpace(subtitle))
+    {
+        <meta asp-name="description" content="@($"{title},{subtitle}")" />
+    }
 }
 <section class="bg0 p-b-40 p-t-25">
     <div class="container">
@@ -68,7 +79,6 @@
                             <blockquote>@subtitle</blockquote>
                         }
                         <div class="f1-s-11 cl6 p-b-15 content-blog">
-                            @await DisplayAsync(Model.Content.ContentsMetadata)
                             @await DisplayAsync(Model.Content.MarkdownBodyPart)
                         </div>
                         @if ((tags?.Any()) == true)
