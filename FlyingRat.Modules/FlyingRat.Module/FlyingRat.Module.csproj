@@ -6,7 +6,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-	<PackageReference Include="Lucene.JIEba.NetCore" Version="2.1.4" />
 	<ProjectReference Include="..\..\..\..\sources\OrchardCore\src\OrchardCore.Modules\OrchardCore.Lists\OrchardCore.Lists.csproj" />
 	<ProjectReference Include="..\..\..\..\sources\OrchardCore\src\OrchardCore.Modules\OrchardCore.Lucene\OrchardCore.Lucene.csproj" />
 	<ProjectReference Include="..\..\..\..\sources\OrchardCore\src\OrchardCore.Modules\OrchardCore.Markdown\OrchardCore.Markdown.csproj" />
@@ -26,5 +25,9 @@
     <Folder Include="ContentSetting\Handlers\" />
     <Folder Include="ContentSetting\Services\" />
     <Folder Include="wwwroot\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Lucene.JIEba.NetCore" Version="2.1.6" />
   </ItemGroup>
 </Project>

@@ -32,6 +32,8 @@
         words.AppendJoin(",", tags.Select(x => x.DisplayText));
     }
     string title = Model.ContentItem.DisplayText;
+    var tokens = await Orchard.Tokenize("DisplayText",title,subtitle);
+    words.AppendJoin(",", tokens.Take(20));
     @await DisplayAsync(Model.Content.ContentsMetadata)
     if (words.Length > 0)
     {
@@ -39,7 +41,7 @@
     }
     if (!string.IsNullOrWhiteSpace(subtitle))
     {
-        <meta asp-name="description" content="@($"{title},{subtitle}")" />
+        <meta asp-name="description" content="@($"{subtitle ?? title}")" />
     }
 }
 <section class="bg0 p-b-40 p-t-25">

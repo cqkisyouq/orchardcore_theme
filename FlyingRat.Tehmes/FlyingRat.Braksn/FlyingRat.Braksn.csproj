@@ -27,5 +27,6 @@
 	<ProjectReference Include="..\..\..\..\sources\OrchardCore\src\OrchardCore\OrchardCore.DisplayManagement\OrchardCore.DisplayManagement.csproj" />
 	<ProjectReference Include="..\..\..\..\sources\OrchardCore\src\OrchardCore\OrchardCore.ResourceManagement\OrchardCore.ResourceManagement.csproj" />
 	<ProjectReference Include="..\..\..\..\sources\OrchardCore\src\OrchardCore\OrchardCore.Theme.Targets\OrchardCore.Theme.Targets.csproj" />
+	<ProjectReference Include="..\..\FlyingRat.Modules\FlyingRat.Module\FlyingRat.Module.csproj" />
   </ItemGroup>
 </Project>

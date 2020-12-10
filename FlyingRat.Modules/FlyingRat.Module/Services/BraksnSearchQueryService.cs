@@ -23,12 +23,23 @@ namespace FlyingRat.Module.Services
             var totalCount = 0;
             await _luceneIndexManager.SearchAsync(indexName, searcher =>
             {
-                var collector = TopScoreDocCollector.Create(end, true);
-
-                searcher.Search(query, collector);
-                var hits = collector.GetTopDocs(start, end);
+                TopDocs hits;
+                if(query is MatchAllDocsQuery)
+                {
+                    hits=searcher.Search(query,end, new Sort(new SortField("Content.ContentItem.CreatedUtc", SortFieldType.DOUBLE, true)));
+                }
+                else
+                {
+                    var collector = TopScoreDocCollector.Create(end, true);
+                    searcher.Search(query, collector);
+                    hits = collector.GetTopDocs(start, end);
+                }
+                
                 totalCount = hits.TotalHits;
-                foreach (var hit in hits.ScoreDocs)
+                if (start>=totalCount) return Task.CompletedTask;
+                var size = end - start;
+                if (start + size > totalCount) size = totalCount - start;
+                foreach (var hit in hits.ScoreDocs.AsSpan().Slice(start, size))
                 {
                     var d = searcher.Doc(hit.Doc, IdSet);
                     contentItemIds.Add(d.GetField("ContentItemId").GetStringValue());

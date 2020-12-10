@@ -1,5 +1,6 @@
 ﻿using FlyingRat.Module.Services;
 using Lucene.Net.QueryParsers.Classic;
+using Lucene.Net.Search;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -109,24 +110,26 @@ namespace FlyingRat.Module.Controllers
                 return BadRequest($"Search index ({searchSettings.SearchIndex}) is not configured.");
             }
 
-            if (string.IsNullOrWhiteSpace(viewModel.Terms))
-            {
-                return View(new SearchIndexViewModel
-                {
-                    SearchForm = new SearchFormViewModel("Search__Form") { },
-                });
-            }
+            //if (string.IsNullOrWhiteSpace(viewModel.Terms))
+            //{
+            //    return View(new SearchIndexViewModel
+            //    {
+            //        SearchForm = new SearchFormViewModel("Search__Form") { },
+            //    });
+            //}
 
             var pager = new Pager(pagerParameters, siteSettings.PageSize);
 
             // We Query Lucene index
             var analyzer = _luceneAnalyzerManager.CreateAnalyzer(await _luceneIndexSettingsService.GetIndexAnalyzerAsync(luceneIndexSettings.IndexName));
             var queryParser = new MultiFieldQueryParser(LuceneSettings.DefaultVersion, luceneSettings.DefaultSearchFields, analyzer);
-            var query = queryParser.Parse(QueryParser.Escape(viewModel.Terms));
+            var query = string.IsNullOrWhiteSpace(viewModel.Terms)
+                ? new MatchAllDocsQuery()
+                : queryParser.Parse(QueryParser.Escape(viewModel.Terms));
 
             // Fetch one more result than PageSize to generate "More" links
-            var start =Math.Max(0,(pager.Page -1) * pager.PageSize);
-            var end =Math.Max(start,start + pager.PageSize);
+            var start = Math.Max(0, (pager.Page - 1) * pager.PageSize);
+            var end = Math.Max(start, start + pager.PageSize);
 
             var queryContentItems = (await _searchQueryService.ExecuteQueryAsync(query, searchSettings.SearchIndex, start, end));
 

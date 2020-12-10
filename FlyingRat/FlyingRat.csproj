@@ -27,7 +27,6 @@
   <ItemGroup>
 	<ProjectReference Include="..\..\..\sources\OrchardCore\src\OrchardCore\OrchardCore.Application.Cms.Targets\OrchardCore.Application.Cms.Targets.csproj" />
 	<ProjectReference Include="..\..\..\sources\OrchardCore\src\OrchardCore\OrchardCore.Logging.NLog\OrchardCore.Logging.NLog.csproj" />
-	<ProjectReference Include="..\FlyingRat.Modules\FlyingRat.Module\FlyingRat.Module.csproj" />
 	<ProjectReference Include="..\FlyingRat.Tehmes\FlyingRat.Braksn\FlyingRat.Braksn.csproj" />
   </ItemGroup>
 
