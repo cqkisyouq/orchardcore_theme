@@ -22,7 +22,7 @@ namespace FlyingRat.Module.AttachContent.Drivers
         public AttachContentPartDisplayDriver(
             IContentDefinitionManager contentDefinitionManager,
             ILiquidTemplateManager liquidTemplatemanager,
-            IStringLocalizer<LiquidPartDisplay> localizer
+            IStringLocalizer<LiquidPartDisplayDriver> localizer
             )
         {
             _contentDefinitionManager = contentDefinitionManager;
