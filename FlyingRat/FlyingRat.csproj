@@ -4,7 +4,7 @@
   <Import Project="..\..\..\sources\OrchardCore\src\OrchardCore\OrchardCore.Application.Cms.Core.Targets\OrchardCore.Application.Cms.Core.Targets.props" />
 
   <PropertyGroup>
-	<TargetFramework>netcoreapp3.1</TargetFramework>
+	<TargetFramework>net5.0</TargetFramework>
 	<PreserveCompilationReferences>true</PreserveCompilationReferences>
 	<TieredCompilation>true</TieredCompilation>
 	<UserSecretsId>a2479523-b57d-4ebd-ab0d-37f1c91ccf62</UserSecretsId>

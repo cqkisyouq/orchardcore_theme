@@ -31,14 +31,14 @@ namespace FlyingRat.Module.Atlas.Drivers
                  int totalCount = 0;
                  if (await _mediaFileStore.GetDirectoryInfoAsync(part.Path) != null)
                  {
-                     var files = await _mediaFileStore.GetDirectoryContentAsync(part.Path);
-                     totalCount = files.Where(x => !x.IsDirectory).Count();
-                     model.Medias = files.Reverse()
+                     var files = _mediaFileStore.GetDirectoryContentAsync(part.Path);
+                     totalCount =await files.Where(x => !x.IsDirectory).CountAsync();
+                     model.Medias =await files.Reverse()
                      .Where(x => !x.IsDirectory)
                      .Skip(Math.Max(0, count.Value))
                      .Take(pager.PageSize.Value)
                      .Select(x => new Media() { Name = x.Name, Path = x.Path })
-                     .ToList();
+                     .ToListAsync();
                  }
                  model.Cover = part.Cover;
                  model.Path = part.Path;
