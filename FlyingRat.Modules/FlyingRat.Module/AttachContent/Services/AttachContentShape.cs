@@ -1,8 +1,10 @@
-﻿using FlyingRat.Module.AttachContent.ViewModel;
+﻿using Fluid.Values;
+using FlyingRat.Module.AttachContent.ViewModel;
 using Microsoft.Extensions.DependencyInjection;
 using OrchardCore.DisplayManagement.Descriptors;
 using OrchardCore.DisplayManagement.Implementation;
 using OrchardCore.Liquid;
+using System.Collections.Generic;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
 
@@ -22,8 +24,8 @@ namespace FlyingRat.Module.AttachContent.Services
             var model = shapeDisplayContext.Shape as AttachContentPartViewModel;
             var liquidTemplateManager = shapeDisplayContext.ServiceProvider.GetRequiredService<ILiquidTemplateManager>();
 
-            model.Html = await liquidTemplateManager.RenderAsync(model.AttachContentPart.AttachContent, _htmlEncoder, shapeDisplayContext.DisplayContext.Value,
-                scope => scope.SetValue("ContentItem", model.ContentItem));
+            model.Html = await liquidTemplateManager.RenderStringAsync(model.AttachContentPart.AttachContent, _htmlEncoder, shapeDisplayContext.DisplayContext.Value,
+                new Dictionary<string, FluidValue>() { ["ContentItem"]=new ObjectValue(model.ContentItem) });
         }
         public void Discover(ShapeTableBuilder builder)
         {

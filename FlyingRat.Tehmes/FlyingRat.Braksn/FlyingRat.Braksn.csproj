@@ -3,6 +3,7 @@
   <PropertyGroup>
 	<TargetFramework>net5.0</TargetFramework>
 	<AddRazorSupportForMvc>true</AddRazorSupportForMvc>
+	<EnableDefaultEmbeddedResourceItems>false</EnableDefaultEmbeddedResourceItems>
   </PropertyGroup>
 
   <ItemGroup>
@@ -18,15 +19,18 @@
 
   <ItemGroup>
 	<PackageReference Include="BuildBundlerMinifier" Version="3.2.449" />
-	<ProjectReference Include="..\..\..\..\sources\OrchardCore\src\OrchardCore.Modules\OrchardCore.Contents\OrchardCore.Contents.csproj" />
-	<ProjectReference Include="..\..\..\..\sources\OrchardCore\src\OrchardCore.Modules\OrchardCore.Media\OrchardCore.Media.csproj" />
-	<ProjectReference Include="..\..\..\..\sources\OrchardCore\src\OrchardCore.Modules\OrchardCore.Menu\OrchardCore.Menu.csproj" />
-	<ProjectReference Include="..\..\..\..\sources\OrchardCore\src\OrchardCore.Modules\OrchardCore.Taxonomies\OrchardCore.Taxonomies.csproj" />
-	<ProjectReference Include="..\..\..\..\sources\OrchardCore\src\OrchardCore.Modules\OrchardCore.Users\OrchardCore.Users.csproj" />
-	<ProjectReference Include="..\..\..\..\sources\OrchardCore\src\OrchardCore\OrchardCore.ContentManagement\OrchardCore.ContentManagement.csproj" />
-	<ProjectReference Include="..\..\..\..\sources\OrchardCore\src\OrchardCore\OrchardCore.DisplayManagement\OrchardCore.DisplayManagement.csproj" />
-	<ProjectReference Include="..\..\..\..\sources\OrchardCore\src\OrchardCore\OrchardCore.ResourceManagement\OrchardCore.ResourceManagement.csproj" />
-	<ProjectReference Include="..\..\..\..\sources\OrchardCore\src\OrchardCore\OrchardCore.Theme.Targets\OrchardCore.Theme.Targets.csproj" />
-	<ProjectReference Include="..\..\FlyingRat.Modules\FlyingRat.Module\FlyingRat.Module.csproj" />
+	<PackageReference Include="OrchardCore.ContentManagement" Version="1.0.0" />
+	<PackageReference Include="OrchardCore.Contents" Version="1.0.0" />
+	<PackageReference Include="OrchardCore.DisplayManagement" Version="1.0.0" />
+	<PackageReference Include="OrchardCore.Media" Version="1.0.0" />
+	<PackageReference Include="OrchardCore.Menu" Version="1.0.0" />
+	<PackageReference Include="OrchardCore.ResourceManagement" Version="1.0.0" />
+	<PackageReference Include="OrchardCore.Taxonomies" Version="1.0.0" />
+	<PackageReference Include="OrchardCore.Theme.Targets" Version="1.0.0" />
+	<PackageReference Include="OrchardCore.Users" Version="1.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\FlyingRat.Modules\FlyingRat.Module\FlyingRat.Module.csproj" />
   </ItemGroup>
 </Project>

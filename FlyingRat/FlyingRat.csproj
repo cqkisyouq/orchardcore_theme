@@ -17,6 +17,10 @@
 	<None Remove="App_Data\**" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="OrchardCore.Logging.NLog" Version="1.0.0" />
+  </ItemGroup>
+
 
   <ItemGroup>
 	<Content Update="NLog.config">
@@ -26,7 +30,6 @@
 
   <ItemGroup>
 	<ProjectReference Include="..\..\..\sources\OrchardCore\src\OrchardCore\OrchardCore.Application.Cms.Targets\OrchardCore.Application.Cms.Targets.csproj" />
-	<ProjectReference Include="..\..\..\sources\OrchardCore\src\OrchardCore\OrchardCore.Logging.NLog\OrchardCore.Logging.NLog.csproj" />
 	<ProjectReference Include="..\FlyingRat.Tehmes\FlyingRat.Braksn\FlyingRat.Braksn.csproj" />
   </ItemGroup>
 

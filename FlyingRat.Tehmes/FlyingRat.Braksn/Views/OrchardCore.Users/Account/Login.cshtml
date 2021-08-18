@@ -31,7 +31,7 @@
                             <!-- Form start -->
                             <form asp-controller="Account" asp-action="Login" asp-route-returnurl="@ViewData["ReturnUrl"]" method="post">
                                 <div class="form-group">
-                                    <input asp-for="UserName" class="input-text" autofocus tabindex="1" placeholder="@LT["Username"]" />
+                                    <input asp-for="UserName" class="input-text" autofocus tabindex="1" placeholder="@LT["Username or email address"]" />
                                     <span asp-validation-for="UserName" class="text-danger float-l"></span>
                                 </div>
                                 <div class="form-group">

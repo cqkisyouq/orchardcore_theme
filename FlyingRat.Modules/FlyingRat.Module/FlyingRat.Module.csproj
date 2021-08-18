@@ -3,21 +3,8 @@
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
 	<AddRazorSupportForMvc>true</AddRazorSupportForMvc>
+	<EnableDefaultEmbeddedResourceItems>false</EnableDefaultEmbeddedResourceItems>
   </PropertyGroup>
-
-  <ItemGroup>
-	<ProjectReference Include="..\..\..\..\sources\OrchardCore\src\OrchardCore.Modules\OrchardCore.Lists\OrchardCore.Lists.csproj" />
-	<ProjectReference Include="..\..\..\..\sources\OrchardCore\src\OrchardCore.Modules\OrchardCore.Lucene\OrchardCore.Lucene.csproj" />
-	<ProjectReference Include="..\..\..\..\sources\OrchardCore\src\OrchardCore.Modules\OrchardCore.Markdown\OrchardCore.Markdown.csproj" />
-	<ProjectReference Include="..\..\..\..\sources\OrchardCore\src\OrchardCore.Modules\OrchardCore.Taxonomies\OrchardCore.Taxonomies.csproj" />
-	<ProjectReference Include="..\..\..\..\sources\OrchardCore\src\OrchardCore\OrchardCore.ContentManagement\OrchardCore.ContentManagement.csproj" />
-	<ProjectReference Include="..\..\..\..\sources\OrchardCore\src\OrchardCore\OrchardCore.DisplayManagement\OrchardCore.DisplayManagement.csproj" />
-	<ProjectReference Include="..\..\..\..\sources\OrchardCore\src\OrchardCore\OrchardCore.Module.Targets\OrchardCore.Module.Targets.csproj" />
-	<ProjectReference Include="..\..\..\..\sources\OrchardCore\src\OrchardCore\OrchardCore.Search.Abstractions\OrchardCore.Search.Abstractions.csproj" />
-	<ProjectReference Include="..\..\..\..\sources\OrchardCore\src\OrchardCore\OrchardCore.Users.Core\OrchardCore.Users.Core.csproj" />
-	<ProjectReference Include="..\..\..\..\sources\OrchardCore\src\OrchardCore.Modules\OrchardCore.Liquid\OrchardCore.Liquid.csproj" />
-	<ProjectReference Include="..\..\..\..\sources\OrchardCore\src\OrchardCore.Modules\OrchardCore.Media\OrchardCore.Media.csproj" />
-  </ItemGroup>
 
   <ItemGroup>
     <Folder Include="Atlas\Handlers\" />
@@ -29,5 +16,16 @@
 
   <ItemGroup>
     <PackageReference Include="Lucene.JIEba.NetCore" Version="2.1.6" />
+    <PackageReference Include="OrchardCore.ContentManagement" Version="1.0.0" />
+    <PackageReference Include="OrchardCore.Contents" Version="1.0.0" />
+    <PackageReference Include="OrchardCore.Liquid" Version="1.0.0" />
+    <PackageReference Include="OrchardCore.Lists" Version="1.0.0" />
+    <PackageReference Include="OrchardCore.Lucene" Version="1.0.0" />
+    <PackageReference Include="OrchardCore.Markdown" Version="1.0.0" />
+    <PackageReference Include="OrchardCore.Media" Version="1.0.0" />
+    <PackageReference Include="OrchardCore.Module.Targets" Version="1.0.0" />
+    <PackageReference Include="OrchardCore.Search.Abstractions" Version="1.0.0" />
+    <PackageReference Include="OrchardCore.Taxonomies" Version="1.0.0" />
+    <PackageReference Include="OrchardCore.Users.Core" Version="1.0.0" />
   </ItemGroup>
 </Project>

@@ -99,7 +99,7 @@ namespace FlyingRat.Module.Controllers
             var shape = await _contentItemDisplayManager.UpdateEditorAsync(contentItem, _updateModelAccessor.ModelUpdater, true);
             if (!ModelState.IsValid)
             {
-                _session.Cancel();
+                await _session.CancelAsync();
                 return View("Create", model);
             }
             await _contentManager.CreateAsync(contentItem, VersionOptions.Draft);
@@ -145,7 +145,7 @@ namespace FlyingRat.Module.Controllers
             var shape = await _contentItemDisplayManager.UpdateEditorAsync(contentItem, _updateModelAccessor.ModelUpdater, false);
             if (!ModelState.IsValid)
             {
-                _session.Cancel();
+                await _session.CancelAsync();
                 return View("Edit", model);
             }
             await _contentManager.PublishAsync(contentItem);

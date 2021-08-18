@@ -15,10 +15,45 @@ namespace FlyingRat.Module.Account.Handlers
             _extensionService = extensionService;
         }
 
-        public Task UpdatedAsync(UserContext context)
+        public Task CreatedAsync(UserCreateContext context)
+        {
+            return Task.CompletedTask;
+        }
+
+        public Task CreatingAsync(UserCreateContext context)
+        {
+            return Task.CompletedTask;
+        }
+
+        public Task DeletedAsync(UserDeleteContext context)
+        {
+            return Task.CompletedTask;
+        }
+
+        public Task DeletingAsync(UserDeleteContext context)
+        {
+            return Task.CompletedTask;
+        }
+
+        public Task DisabledAsync(UserContext context)
+        {
+            return Task.CompletedTask;
+        }
+
+        public Task EnabledAsync(UserContext context)
+        {
+            return Task.CompletedTask;
+        }
+
+        public Task UpdatedAsync(UserUpdateContext context)
         {
             _extensionService.UpdateAuthorOf(context.User as User);
-            return Task.CompletedTask ;
+            return Task.CompletedTask;
+        }
+
+        public Task UpdatingAsync(UserUpdateContext context)
+        {
+            return Task.CompletedTask;
         }
     }
 }

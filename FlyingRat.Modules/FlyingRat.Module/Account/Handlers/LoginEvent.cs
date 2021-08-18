@@ -22,11 +22,17 @@ namespace FlyingRat.Module.Account.Handlers
             _extensionService = extensionService;
             _userManager = userManager;
         }
-        public Task LoggedInAsync(string userName)
+
+        public Task IsLockedOutAsync(IUser user)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task LoggedInAsync(IUser user)
         {
             //todo: 登录成功，缓存用户信息
-            var user = _userManager.FindByNameAsync(userName).GetAwaiter().GetResult();
-            if(user is User userItem)
+            //var user = _userManager.FindByNameAsync(user.UserName).GetAwaiter().GetResult();
+            if (user is User userItem)
             {
                 _extensionService.CacheUserExtension(userItem.UserName, user.As<UserProfile>());
             }
@@ -39,6 +45,11 @@ namespace FlyingRat.Module.Account.Handlers
         }
 
         public Task LoggingInFailedAsync(string userName)
+        {
+            return Task.CompletedTask;
+        }
+
+        public Task LoggingInFailedAsync(IUser user)
         {
             return Task.CompletedTask;
         }
